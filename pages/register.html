@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Register | BloodConnect</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+
+        <span class="logo-drop">▼</span>
+
+        <span>
+            Blood<span class="logo-red">Connect</span>
+        </span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+        <a href="donor.html">
+            Donate Blood
+        </a>
+
+        <a href="search.html">
+            Search Donors
+        </a>
+
+        <a href="about.html">
+            About Us
+        </a>
+
+    </nav>
+
+
+    <a
+        href="login.html"
+        class="nav-button"
+    >
+
+        Login
+
+        <span>→</span>
+
+    </a>
+
+</header>
+
+
+
+<main class="auth-page">
+
+
+    <div class="auth-container">
+
+
+        <div class="auth-content">
+
+
+            <span class="section-label">
+                JOIN BLOODCONNECT
+            </span>
+
+
+            <h1>
+
+                Create your
+
+                <br>
+
+                <span>account.</span>
+
+            </h1>
+
+
+            <p>
+
+                Create one account and use it
+                for everything — donating blood,
+                requesting blood and managing
+                your profile.
+
+            </p>
+
+
+            <div class="auth-benefits">
+
+                <div>
+
+                    <span>01</span>
+
+                    <p>
+                        One account for everything
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <span>02</span>
+
+                    <p>
+                        Become a donor anytime
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <span>03</span>
+
+                    <p>
+                        Request blood when needed
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="auth-card">
+
+
+            <div class="auth-card-header">
+
+                <span class="form-step">
+                    CREATE ACCOUNT
+                </span>
+
+                <h2>
+                    Get started
+                </h2>
+
+                <p>
+                    No donor/requester selection needed.
+                </p>
+
+            </div>
+
+
+
+            <form id="registerForm">
+
+
+                <div class="form-group">
+
+                    <label for="registerName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registerName"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="registerEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="registerPhone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="registerPhone"
+                        placeholder="10-digit phone number"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="registerPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm your password"
+                        required
+                    >
+
+                </div>
+
+
+
+                <button
+                    type="submit"
+                    class="form-submit"
+                >
+
+                    Create Account
+
+                    <span>→</span>
+
+                </button>
+
+
+            </form>
+
+
+
+            <div
+                id="registerMessage"
+                class="auth-message"
+                hidden
+            ></div>
+
+
+
+            <p class="auth-switch">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+
+<footer>
+
+    <div class="footer-logo">
+
+        <span class="footer-drop">
+            ▼
+        </span>
+
+        Blood<span>Connect</span>
+
+    </div>
+
+
+    <p>
+        Find Blood. Save Lives.
+    </p>
+
+
+    <p class="footer-copy">
+        © 2026 BloodConnect
+    </p>
+
+</footer>
+
+
+
+<script src="../js/auth.js"></script>
+
+<script src="../js/register.js"></script>
+
+</body>
+
+</html>
