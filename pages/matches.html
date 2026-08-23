@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Matching Donors | BloodConnect</title>
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a
+            href="../index.html"
+            class="logo"
+        >
+
+            <span class="logo-drop">
+                ▼
+            </span>
+
+            <span>
+                Blood<span class="logo-red">Connect</span>
+            </span>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a href="donor.html">
+                Donate Blood
+            </a>
+
+            <a
+                href="search.html"
+                class="active"
+            >
+                Search Donors
+            </a>
+
+            <a href="about.html">
+                About Us
+            </a>
+
+        </nav>
+
+
+        <a
+            href="donor.html"
+            class="nav-button"
+        >
+
+            Become a Donor
+
+            <span>→</span>
+
+        </a>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="matches-page">
+
+
+        <!-- ================= INTRO ================= -->
+
+        <section class="matches-intro">
+
+            <div>
+
+                <span class="section-label">
+                    MATCHING RESULTS
+                </span>
+
+
+                <h1>
+
+                    Compatible donors
+
+                    <br>
+
+                    <span>found for you.</span>
+
+                </h1>
+
+
+                <p id="requestSummary">
+                    Checking your blood request...
+                </p>
+
+            </div>
+
+
+            <a
+                href="search.html"
+                class="secondary-button"
+            >
+
+                New Search
+
+            </a>
+
+        </section>
+
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <section class="match-summary">
+
+
+            <div class="summary-item">
+
+                <span>
+                    REQUESTED BLOOD
+                </span>
+
+                <strong id="summaryBloodGroup">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    UNITS
+                </span>
+
+                <strong id="summaryUnits">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    URGENCY
+                </span>
+
+                <strong id="summaryUrgency">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    MATCHES
+                </span>
+
+                <strong id="summaryMatches">
+                    —
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= MATCHES ================= -->
+
+        <section class="matches-section">
+
+
+            <div class="matches-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        AVAILABLE DONORS
+                    </span>
+
+                    <h2>
+                        Best matches
+                    </h2>
+
+                </div>
+
+
+                <p>
+                    Donors are filtered by blood compatibility
+                    and current eligibility.
+                </p>
+
+            </div>
+
+
+
+            <div
+                id="matchesContainer"
+                class="matches-container"
+            >
+
+            </div>
+
+
+
+            <!-- NO MATCH -->
+
+            <div
+                id="noMatches"
+                class="no-matches"
+                hidden
+            >
+
+                <div class="no-match-icon">
+                    !
+                </div>
+
+
+                <h3>
+                    No matching donors found
+                </h3>
+
+
+                <p>
+                    There are currently no compatible and
+                    eligible donors available.
+                </p>
+
+
+                <a
+                    href="search.html"
+                    class="primary-button"
+                >
+
+                    Try Another Search
+
+                    <span>→</span>
+
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =================================================
+         DONOR DETAILS MODAL
+    ================================================= -->
+
+    <div
+        id="donorModal"
+        class="donor-modal"
+        hidden
+    >
+
+        <div
+            class="donor-modal-overlay"
+            id="modalOverlay"
+        ></div>
+
+
+        <div class="donor-modal-card">
+
+
+            <!-- CLOSE -->
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeModal"
+            >
+                ×
+            </button>
+
+
+
+            <!-- HEADER -->
+
+            <div class="modal-header">
+
+
+                <div class="modal-avatar" id="modalAvatar">
+                    RS
+                </div>
+
+
+                <div>
+
+                    <span class="modal-label">
+                        DONOR PROFILE
+                    </span>
+
+
+                    <h2 id="modalDonorName">
+                        Donor Name
+                    </h2>
+
+
+                    <div class="modal-status">
+
+                        <span></span>
+
+                        Eligible Donor
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- BLOOD HIGHLIGHT -->
+
+            <div class="modal-blood-highlight">
+
+                <div>
+
+                    <span>
+                        BLOOD GROUP
+                    </span>
+
+                    <strong id="modalBloodGroup">
+                        O+
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        MATCH SCORE
+                    </span>
+
+                    <strong id="modalMatchScore">
+                        100%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DETAILS -->
+
+            <div class="modal-details">
+
+
+                <div class="modal-detail">
+
+                    <span>
+                        AGE
+                    </span>
+
+                    <strong id="modalAge">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="modal-detail">
+
+                    <span>
+                        LOCATION
+                    </span>
+
+                    <strong id="modalLocation">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="modal-detail">
+
+                    <span>
+                        LAST DONATION
+                    </span>
+
+                    <strong id="modalLastDonation">
+                        First-time donor
+                    </strong>
+
+                </div>
+
+
+                <div class="modal-detail">
+
+                    <span>
+                        STATUS
+                    </span>
+
+                    <strong class="green-text">
+                        Currently Eligible
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- CONTACT -->
+
+            <div class="modal-contact-section">
+
+
+                <span class="modal-section-title">
+                    CONTACT INFORMATION
+                </span>
+
+
+                <div class="contact-row">
+
+
+                    <div class="contact-icon">
+                        ☎
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            PHONE
+                        </span>
+
+                        <strong id="modalPhone">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="contact-row">
+
+
+                    <div class="contact-icon">
+                        @
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            EMAIL
+                        </span>
+
+                        <strong id="modalEmail">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FOOTER -->
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    id="modalContactButton"
+                    class="modal-primary-button"
+                >
+
+                    Contact Donor
+
+                    <span>→</span>
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="footer-drop">▼</span>
+                    Blood<span>Connect</span>
+                </div>
+                <p class="footer-tagline">
+                    Connecting donors with those in need.
+                    Every drop counts.
+                </p>
+            </div>
+
+            <div class="footer-links-group">
+                <h4>Navigation</h4>
+                <a href="../index.html">Home</a>
+                <a href="donor.html">Donate Blood</a>
+                <a href="search.html">Search Donors</a>
+                <a href="about.html">About Us</a>
+            </div>
+
+            <div class="footer-links-group">
+                <h4>Blood Groups</h4>
+                <a href="search.html?group=A%2B">A+</a>
+                <a href="search.html?group=A-">A−</a>
+                <a href="search.html?group=B%2B">B+</a>
+                <a href="search.html?group=B-">B−</a>
+                <a href="search.html?group=AB%2B">AB+</a>
+                <a href="search.html?group=O%2B">O+</a>
+            </div>
+
+            <div class="footer-links-group">
+                <h4>Help</h4>
+                <a href="about.html">How It Works</a>
+                <a href="donor.html">Eligibility Check</a>
+                <a href="search.html">Find Donors</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copy">© 2026 BloodConnect. Give Blood. Give Life.</p>
+            <div class="footer-blood-groups">
+                <span>A+</span>
+                <span>A−</span>
+                <span>B+</span>
+                <span>B−</span>
+                <span>AB+</span>
+                <span>AB−</span>
+                <span>O+</span>
+                <span>O−</span>
+            </div>
+        </div>
+
+    </footer>
+
+
+
+<script src="../js/storage.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/matches.js"></script>
+
+<script>
+    requireLogin();
+</script>
+</body>
+
+</html>
