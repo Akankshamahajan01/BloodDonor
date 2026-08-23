@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Donate Blood | BloodConnect</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+    <header class="navbar">
+
+        <!-- LOGO -->
+
+        <a href="../index.html" class="logo">
+
+            <span class="logo-drop">▼</span>
+
+            Blood<span class="logo-red">Connect</span>
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="nav-links">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+
+            <a href="#" class="active" onclick="protectedNavigation('donor.html'); return false;">
+                Donate Blood
+            </a>
+
+
+            <a href="search.html">
+                Search Donors
+            </a>
+
+
+            <a href="about.html">
+                About Us
+            </a>
+
+        </nav>
+
+
+        <!-- LOGIN / REGISTER OR PROFILE -->
+
+        <div id="navbarAuth"></div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+     MAIN DONOR PAGE
+===================================================== -->
+
+    <main class="donor-page">
+
+
+        <!-- =================================================
+         HERO
+    ================================================== -->
+
+        <section class="donor-hero">
+
+            <div class="donor-hero-content">
+
+                <div class="eyebrow">
+                    BECOME A DONOR
+                </div>
+
+
+                <h1>
+
+                    Your blood can
+
+                    <span>
+                        save a life.
+                    </span>
+
+                </h1>
+
+
+                <p>
+
+                    Register as a donor and let our system check
+                    your donation eligibility and connect you
+                    with people who need your blood type.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+         DONOR CONTENT
+    ================================================== -->
+
+        <section class="donor-content">
+
+
+            <!-- =================================================
+             LEFT FORM CARD
+        ================================================== -->
+
+            <div class="donor-form-card">
+
+
+                <!-- FORM HEADING -->
+
+                <div class="form-heading">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            DONOR REGISTRATION
+                        </div>
+
+
+                        <h2>
+                            Your details
+                        </h2>
+
+
+                        <p>
+                            Enter your information to register.
+                        </p>
+
+                    </div>
+
+
+                    <div class="form-icon">
+                        ▼
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                 DONOR FORM
+            ================================================== -->
+
+                <form id="donorForm" novalidate>
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="form-group full-width">
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name"
+                            autocomplete="name" required>
+
+                    </div>
+
+
+
+                    <!-- AGE + BLOOD GROUP -->
+
+                    <div class="form-row">
+
+
+                        <div class="form-group">
+
+                            <label for="age">
+                                Age
+                            </label>
+
+                            <input type="number" id="age" name="age" placeholder="Enter your age" min="18" max="65"
+                                required>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="bloodGroup">
+                                Blood Group
+                            </label>
+
+                            <select id="bloodGroup" name="bloodGroup" required>
+
+                                <option value="">
+                                    Select blood group
+                                </option>
+
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PHONE -->
+
+                    <div class="form-group full-width">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <input type="tel" id="phone" name="phone" placeholder="Enter 10-digit phone number"
+                            maxlength="10" inputmode="numeric" required>
+
+                        <small>
+                            Enter a valid 10-digit phone number.
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group full-width">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input type="email" id="email" name="email" placeholder="Enter your email address"
+                            autocomplete="email" required>
+
+                    </div>
+
+
+
+                    <!-- LOCATION -->
+
+                    <div class="form-group full-width">
+
+                        <label for="location">
+                            Location / City
+                        </label>
+
+                        <input type="text" id="location" name="location" placeholder="Enter your city" required>
+
+                    </div>
+
+
+
+                    <!-- LAST DONATION -->
+
+                    <div class="form-group full-width">
+
+                        <label for="lastDonationDate">
+                            Last Donation Date
+                        </label>
+
+                        <!-- IMPORTANT:
+                         JS also uses lastDonationDate
+                    -->
+
+                        <input type="date" id="lastDonationDate" name="lastDonationDate">
+
+                        <small>
+                            If you have never donated before,
+                            leave this date empty.
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- ELIGIBILITY RESULT -->
+
+                    <div id="eligibilityResult" class="eligibility-result" style="display: none;">
+
+                    </div>
+
+
+
+                    <!-- SUBMIT -->
+
+                    <button type="submit" class="donor-submit-btn" id="checkEligibilityBtn">
+
+                        Check Eligibility
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+            </div>
+
+
+
+            <!-- =================================================
+             RIGHT INFORMATION CARD
+        ================================================== -->
+
+            <div class="donor-info-card">
+
+
+                <!-- IMAGE -->
+
+                <div class="donor-image">
+                    <img src="../assets/images/donate-blood.jpg" alt="Blood donation">
+                </div>
+
+
+
+                <!-- DARK CARD -->
+
+                <div class="donor-info-body">
+
+
+                    <div class="eyebrow pink">
+                        WHY DONATE?
+                    </div>
+
+
+                    <h2>
+
+                        One small act.
+
+                        <span>
+                            Huge impact.
+                        </span>
+
+                    </h2>
+
+
+                    <p>
+
+                        Blood cannot be manufactured.
+                        It can only come from generous
+                        donors like you.
+
+                    </p>
+
+
+
+                    <div class="info-divider"></div>
+
+
+
+                    <!-- ITEM 01 -->
+
+                    <div class="impact-item">
+
+                        <div class="impact-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Help someone in need
+                            </h3>
+
+                            <p>
+                                Your donation may help a patient
+                                when they need it most.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ITEM 02 -->
+
+                    <div class="impact-item">
+
+                        <div class="impact-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Smart eligibility check
+                            </h3>
+
+                            <p>
+                                We'll calculate your next
+                                eligible donation date.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ITEM 03 -->
+
+                    <div class="impact-item">
+
+                        <div class="impact-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Find compatible requests
+                            </h3>
+
+                            <p>
+                                Eligible donors can be matched
+                                with blood requests.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+     FOOTER
+===================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <!-- BRAND -->
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="footer-drop">▼</span>
+                    Blood<span>Connect</span>
+                </div>
+                <p class="footer-tagline">
+                    Connecting donors with those in need.
+                    Every drop counts.
+                </p>
+            </div>
+
+            <!-- NAVIGATION LINKS -->
+            <div class="footer-links-group">
+                <h4>Navigation</h4>
+                <a href="../index.html">Home</a>
+                <a href="donor.html">Donate Blood</a>
+                <a href="search.html">Search Donors</a>
+                <a href="about.html">About Us</a>
+            </div>
+
+            <!-- BLOOD GROUPS -->
+            <div class="footer-links-group">
+                <h4>Blood Groups</h4>
+                <a href="search.html?group=A%2B">A+</a>
+                <a href="search.html?group=A-">A−</a>
+                <a href="search.html?group=B%2B">B+</a>
+                <a href="search.html?group=B-">B−</a>
+                <a href="search.html?group=AB%2B">AB+</a>
+                <a href="search.html?group=O%2B">O+</a>
+            </div>
+
+            <!-- HELP -->
+            <div class="footer-links-group">
+                <h4>Help</h4>
+                <a href="about.html">How It Works</a>
+                <a href="donor.html">Eligibility Check</a>
+                <a href="search.html">Find Donors</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copy">© 2026 BloodConnect. Give Blood. Give Life.</p>
+            <div class="footer-blood-groups">
+                <span>A+</span>
+                <span>A−</span>
+                <span>B+</span>
+                <span>B−</span>
+                <span>AB+</span>
+                <span>AB−</span>
+                <span>O+</span>
+                <span>O−</span>
+            </div>
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/donor.js"></script>
+
+    <script>
+
+        /* Donor page requires login */
+
+        requireLogin();
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | BloodConnect</title>
+
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo"
+    >
+
+        <span class="logo-drop">
+            ▼
+        </span>
+
+        Blood<span class="logo-red">Connect</span>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+        <a href="donor.html">
+            Donate Blood
+        </a>
+
+        <a href="search.html">
+            Search Donors
+        </a>
+
+        <a href="about.html">
+            About Us
+        </a>
+
+    </nav>
+
+
+    <button
+        class="nav-button"
+        id="logoutButton"
+    >
+
+        Logout
+
+    </button>
+
+</header>
+
+
+
+<main class="dashboard-page">
+
+
+    <section class="dashboard-header">
+
+        <span class="section-label">
+            MY BLOODCONNECT
+        </span>
+
+
+        <h1>
+
+            Welcome,
+
+            <span id="dashboardName">
+                User
+            </span>
+
+        </h1>
+
+
+        <p>
+            What would you like to do today?
+        </p>
+
+    </section>
+
+
+
+    <section class="dashboard-actions">
+
+
+        <a
+            href="donor.html"
+            class="dashboard-action-card"
+        >
+
+            <span class="dashboard-number">
+                01
+            </span>
+
+            <h2>
+                Donate Blood
+            </h2>
+
+            <p>
+                Register as a donor,
+                check eligibility and
+                help save a life.
+            </p>
+
+            <strong>
+                Donate Blood →
+            </strong>
+
+        </a>
+
+
+
+        <a
+            href="search.html"
+            class="dashboard-action-card"
+        >
+
+            <span class="dashboard-number">
+                02
+            </span>
+
+            <h2>
+                Search Donors
+            </h2>
+
+            <p>
+                Find compatible blood donors
+                near you quickly.
+            </p>
+
+            <strong>
+                Search Donors →
+            </strong>
+
+        </a>
+
+
+    </section>
+
+
+
+    <section class="dashboard-profile">
+
+
+        <div>
+
+            <span class="section-label">
+                ACCOUNT
+            </span>
+
+            <h2>
+                Your profile
+            </h2>
+
+        </div>
+
+
+        <div class="profile-details">
+
+            <div>
+
+                <span>
+                    NAME
+                </span>
+
+                <strong id="profileName">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    EMAIL
+                </span>
+
+                <strong id="profileEmail">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    PHONE
+                </span>
+
+                <strong id="profilePhone">
+                    —
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<footer>
+
+    <div class="footer-logo">
+
+        <span class="footer-drop">
+            ▼
+        </span>
+
+        Blood<span>Connect</span>
+
+    </div>
+
+
+    <p>
+        Find Blood. Save Lives.
+    </p>
+
+</footer>
+
+
+
+<script src="../js/auth.js"></script>
+<script src="../js/dashboard.js"></script>
+
+</body>
+
+</html>
