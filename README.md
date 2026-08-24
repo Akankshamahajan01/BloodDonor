@@ -63,32 +63,7 @@ A lifesaving, user-friendly web application designed to **connect blood donors w
 * **Database:** SQLite
 * **Authentication:** Login & Registration System
 * **APIs:** REST API integration
-* **Development Tools:** Git, GitHub, VS Code, npm
-
-
-📂 Project Structure
-
-
-BloodDonor/
-│
-├── css/
-│   └── stylesheets
-│
-├── js/
-│   └── JavaScript files
-│
-├── pages/
-│   ├── about.html
-│   ├── login.html
-│   ├── register.html
-│   ├── dashboard.html
-│   ├── donor.html
-│   └── request.html
-│
-├── index.html
-└── README.md
-
-
+* **Development Tools:** Git, GitHub, VS Code
 
 
 The application can then be accessed through the local server URL shown in the terminal.
