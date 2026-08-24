@@ -65,9 +65,8 @@ A lifesaving, user-friendly web application designed to **connect blood donors w
 * **APIs:** REST API integration
 * **Development Tools:** Git, GitHub, VS Code, npm
 
----
 
-## 📂 Project Structure
+📂 Project Structure
 
 
 BloodDonor/
@@ -90,7 +89,6 @@ BloodDonor/
 └── README.md
 
 
----
 
 
 The application can then be accessed through the local server URL shown in the terminal.
