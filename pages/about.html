@@ -1,408 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>About Us | BloodConnect — Saving Lives Through Smart Technology</title>
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
-        rel="stylesheet"
-    >
-
-    <!-- Main Stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body class="about-page">
 
-    <!-- =====================================================
-         NAVBAR
-    ===================================================== -->
     <header class="navbar">
-
-        <!-- LOGO -->
         <a href="../index.html" class="logo">
             <span class="logo-drop">▼</span>
             <span>Blood<span class="logo-red">Connect</span></span>
         </a>
-
-        <!-- NAVIGATION LINKS -->
         <nav class="nav-links">
-            <a href="../index.html">
-                Home
-            </a>
-
-            <a href="#" onclick="protectedNavigation('donor.html'); return false;">
-                Donate Blood
-            </a>
-
-            <a href="search.html">
-                Search Donors
-            </a>
-
-            <a href="about.html" class="active">
-                About Us
-            </a>
+            <a href="../index.html">Home</a>
+            <a href="#" onclick="protectedNavigation('donor.html'); return false;">Donate Blood</a>
+            <a href="search.html">Search Donors</a>
+            <a href="about.html" class="active">About Us</a>
         </nav>
-
-        <!-- DYNAMIC AUTH STATE -->
         <div id="navbarAuth"></div>
-
     </header>
 
-
-    <!-- =====================================================
-         MAIN ABOUT US CONTENT
-    ===================================================== -->
     <main>
 
-        <!-- =================================================
-             1. HERO SECTION
-        ================================================== -->
+        <!-- HERO -->
         <section class="about-hero">
-
             <div class="about-hero-inner">
-
-                <!-- LEFT: Hero Content -->
                 <div class="about-hero-content">
-
                     <div class="about-badge">
                         <span class="badge-pulse-dot"></span>
                         BEE Engineering Project • Social Healthcare Innovation
                     </div>
-
-                    <h1>
-                        Bridging the gap between <span>hope & life-saving</span> blood.
-                    </h1>
-
+                    <h1>Bridging the gap between <span>hope & life-saving</span> blood.</h1>
                     <p class="about-hero-lead">
                         BloodConnect was engineered as a digital healthcare initiative to eliminate critical delays in blood discovery. By fusing rule-based ABO/Rh matching algorithms with community-driven donor tracking, we empower families and hospitals to connect with compatible donors in real-time.
                     </p>
-
                     <div class="about-hero-actions">
                         <a href="donor.html" class="primary-button" onclick="protectedNavigation('donor.html'); return false;">
-                            Become a Donor
-                            <span>→</span>
+                            Become a Donor <span>→</span>
                         </a>
-
-                        <a href="#story" class="secondary-button">
-                            Learn Our Story
-                        </a>
+                        <a href="#story" class="secondary-button">Learn Our Story</a>
                     </div>
-
                 </div>
 
-                <!-- RIGHT: Hero Visual / Infographic -->
                 <div class="about-hero-image-wrap">
-
                     <div class="about-hero-img-card">
-                        <img
-                            src="../assets/images/about-network.jpg"
-                            alt="BloodConnect Smart Donor Matching Network"
-                            onerror="this.src='../assets/images/hero-blood.jpg'"
-                        >
+                        <img src="../assets/images/about-network.jpg" alt="BloodConnect Smart Donor Matching Network" onerror="this.src='../assets/images/hero-blood.jpg'">
                     </div>
-
                     <div class="about-floating-badge">
-                        <div class="floating-badge-icon">
-                            ♥
-                        </div>
+                        <div class="floating-badge-icon">♥</div>
                         <div>
                             <div class="floating-badge-title">100% Voluntary</div>
                             <div class="floating-badge-sub">Zero commercial friction</div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
 
-
-            <!-- STATS COUNTER BAR -->
             <div class="about-stats-bar">
-
                 <div class="about-stat-box">
                     <div class="stat-number">4+</div>
                     <div class="stat-label">Lives Impacted</div>
                     <div class="stat-desc">Per single blood donation unit</div>
                 </div>
-
                 <div class="about-stat-box">
                     <div class="stat-number">&lt; 5m</div>
                     <div class="stat-label">Instant Matching</div>
                     <div class="stat-desc">Zero-latency algorithmic search</div>
                 </div>
-
                 <div class="about-stat-box">
                     <div class="stat-number">8</div>
                     <div class="stat-label">Blood Groups</div>
                     <div class="stat-desc">Complete cross-compatibility engine</div>
                 </div>
-
                 <div class="about-stat-box">
                     <div class="stat-number">100%</div>
                     <div class="stat-label">Free & Open</div>
                     <div class="stat-desc">Community emergency healthcare</div>
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =================================================
-             2. OUR STORY & THE PROBLEM WE SOLVE
-        ================================================== -->
+        <!-- OUR STORY -->
         <section class="about-section" id="story">
-
             <div class="about-container">
-
                 <div class="section-head">
                     <span class="section-eyebrow">THE MOTIVATION</span>
-                    <h2 class="section-title">
-                        Why We Engineered <span>BloodConnect</span>
-                    </h2>
-                    <p class="section-subtitle">
-                        Every two seconds, someone in India needs blood. Traditional coordination relies on chaotic phone calls and panic broadcasts. We built a structured algorithmic bridge.
-                    </p>
+                    <h2 class="section-title">Why We Engineered <span>BloodConnect</span></h2>
+                    <p class="section-subtitle">Every two seconds, someone in India needs blood. Traditional coordination relies on chaotic phone calls and panic broadcasts. We built a structured algorithmic bridge.</p>
                 </div>
 
                 <div class="about-story-grid">
-
-                    <!-- Traditional Problem Card -->
                     <div class="story-card problem">
                         <span class="story-tag">The Traditional Challenge</span>
                         <h3>The Flaws of Manual Coordination</h3>
-                        <p>
-                            In critical emergencies, hospital patients and their families are often left scrambling for donors across social media groups and private contacts.
-                        </p>
-
+                        <p>In critical emergencies, hospital patients and their families are often left scrambling for donors across social media groups and private contacts.</p>
                         <ul class="story-list">
-                            <li>
-                                <span class="story-list-icon">✕</span>
-                                <div><strong>Delayed Response:</strong> Critical hours lost calling inactive or ineligible contacts.</div>
-                            </li>
-                            <li>
-                                <span class="story-list-icon">✕</span>
-                                <div><strong>Compatibility Mistakes:</strong> High risk of requesting incompatible blood groups during panic.</div>
-                            </li>
-                            <li>
-                                <span class="story-list-icon">✕</span>
-                                <div><strong>Donor Fatigue & Repeat Pings:</strong> Contacting donors who gave blood recently and are in a 90-day cooldown.</div>
-                            </li>
+                            <li><span class="story-list-icon">✕</span><div><strong>Delayed Response:</strong> Critical hours lost calling inactive or ineligible contacts.</div></li>
+                            <li><span class="story-list-icon">✕</span><div><strong>Compatibility Mistakes:</strong> High risk of requesting incompatible blood groups during panic.</div></li>
+                            <li><span class="story-list-icon">✕</span><div><strong>Donor Fatigue & Repeat Pings:</strong> Contacting donors who gave blood recently and are in a 90-day cooldown.</div></li>
                         </ul>
                     </div>
 
-                    <!-- Our Digital Solution Card -->
                     <div class="story-card solution">
                         <span class="story-tag">The BloodConnect Solution</span>
                         <h3>Smart Digital Matching</h3>
-                        <p>
-                            BloodConnect provides a structured, responsive web application that streamlines registration, checks medical eligibility, and matches compatible donors instantly.
-                        </p>
-
+                        <p>BloodConnect provides a structured, responsive web application that streamlines registration, checks medical eligibility, and matches compatible donors instantly.</p>
                         <ul class="story-list">
-                            <li>
-                                <span class="story-list-icon">✓</span>
-                                <div><strong>Algorithmic Cross-Matching:</strong> Automated ABO & Rh factor matrix check before ranking.</div>
-                            </li>
-                            <li>
-                                <span class="story-list-icon">✓</span>
-                                <div><strong>Built-in 90-Day Safety Clock:</strong> Calculates next eligible date to safeguard donor wellness.</div>
-                            </li>
-                            <li>
-                                <span class="story-list-icon">✓</span>
-                                <div><strong>Direct Emergency Action:</strong> Click-to-call and WhatsApp integration for instant communication.</div>
-                            </li>
+                            <li><span class="story-list-icon">✓</span><div><strong>Algorithmic Cross-Matching:</strong> Automated ABO & Rh factor matrix check before ranking.</div></li>
+                            <li><span class="story-list-icon">✓</span><div><strong>Built-in 90-Day Safety Clock:</strong> Calculates next eligible date to safeguard donor wellness.</div></li>
+                            <li><span class="story-list-icon">✓</span><div><strong>Direct Emergency Action:</strong> Click-to-call and WhatsApp integration for instant communication.</div></li>
                         </ul>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =================================================
-             3. CORE PILLARS & VALUES
-        ================================================== -->
+        <!-- CORE PILLARS -->
         <section class="about-section about-section-alt">
-
             <div class="about-container">
-
                 <div class="section-head">
                     <span class="section-eyebrow">OUR CORE PRINCIPLES</span>
-                    <h2 class="section-title">
-                        Engineered for <span>Trust & Speed</span>
-                    </h2>
-                    <p class="section-subtitle">
-                        Every architectural decision in BloodConnect is driven by four fundamental principles designed to optimize emergency life-saving workflows.
-                    </p>
+                    <h2 class="section-title">Engineered for <span>Trust & Speed</span></h2>
+                    <p class="section-subtitle">Every architectural decision in BloodConnect is driven by four fundamental principles designed to optimize emergency life-saving workflows.</p>
                 </div>
-
                 <div class="pillars-grid">
-
-                    <!-- Pillar 1 -->
                     <div class="pillar-card">
                         <div class="pillar-icon-box">🧬</div>
                         <h3>Algorithmic Precision</h3>
-                        <p>
-                            Medical-grade blood group compatibility logic prevents cross-matching errors and immediately surfaces viable donors.
-                        </p>
+                        <p>Medical-grade blood group compatibility logic prevents cross-matching errors and immediately surfaces viable donors.</p>
                     </div>
-
-                    <!-- Pillar 2 -->
                     <div class="pillar-card">
                         <div class="pillar-icon-box">⏱️</div>
                         <h3>Safety & Cooldown</h3>
-                        <p>
-                            Automated 90-day countdown intervals ensure donors are not contacted until they are biologically eligible to donate again.
-                        </p>
+                        <p>Automated 90-day countdown intervals ensure donors are not contacted until they are biologically eligible to donate again.</p>
                     </div>
-
-                    <!-- Pillar 3 -->
                     <div class="pillar-card">
                         <div class="pillar-icon-box">⚡</div>
                         <h3>Zero-Latency UX</h3>
-                        <p>
-                            Lightning-fast, lightweight client-side state engine guarantees zero server hang-ups during golden emergency minutes.
-                        </p>
+                        <p>Lightning-fast, lightweight client-side state engine guarantees zero server hang-ups during golden emergency minutes.</p>
                     </div>
-
-                    <!-- Pillar 4 -->
                     <div class="pillar-card">
                         <div class="pillar-icon-box">🤝</div>
                         <h3>Community First</h3>
-                        <p>
-                            100% non-commercial, privacy-respecting platform built purely to foster voluntary humanitarian blood donation.
-                        </p>
+                        <p>100% non-commercial, privacy-respecting platform built purely to foster voluntary humanitarian blood donation.</p>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =================================================
-             4. HOW BLOODCONNECT WORKS (PIPELINE)
-        ================================================== -->
+        <!-- HOW IT WORKS -->
         <section class="about-section">
-
             <div class="about-container">
-
                 <div class="section-head">
                     <span class="section-eyebrow">STEP-BY-STEP WORKFLOW</span>
-                    <h2 class="section-title">
-                        How The System <span>Operates</span>
-                    </h2>
-                    <p class="section-subtitle">
-                        A seamless, 4-step pipeline that transforms raw donor registrations into rapid emergency responses.
-                    </p>
+                    <h2 class="section-title">How The System <span>Operates</span></h2>
+                    <p class="section-subtitle">A seamless, 4-step pipeline that transforms raw donor registrations into rapid emergency responses.</p>
                 </div>
-
                 <div class="timeline-grid">
-
-                    <!-- Step 1 -->
                     <div class="timeline-step">
-                        <div class="step-header">
-                            <span class="step-num">01</span>
-                            <div class="step-icon">👤</div>
-                        </div>
+                        <div class="step-header"><span class="step-num">01</span><div class="step-icon">👤</div></div>
                         <h3>Donor Onboarding</h3>
-                        <p>
-                            Donors register with blood group, city, phone number, and last donation date. Health eligibility criteria are checked dynamically.
-                        </p>
+                        <p>Donors register with blood group, city, phone number, and last donation date. Health eligibility criteria are checked dynamically.</p>
                     </div>
-
-                    <!-- Step 2 -->
                     <div class="timeline-step">
-                        <div class="step-header">
-                            <span class="step-num">02</span>
-                            <div class="step-icon">📋</div>
-                        </div>
+                        <div class="step-header"><span class="step-num">02</span><div class="step-icon">📋</div></div>
                         <h3>Emergency Request</h3>
-                        <p>
-                            Patients or hospitals post an emergency blood request specifying required blood type, hospital, units, and urgency level.
-                        </p>
+                        <p>Patients or hospitals post an emergency blood request specifying required blood type, hospital, units, and urgency level.</p>
                     </div>
-
-                    <!-- Step 3 -->
                     <div class="timeline-step">
-                        <div class="step-header">
-                            <span class="step-num">03</span>
-                            <div class="step-icon">⚙️</div>
-                        </div>
+                        <div class="step-header"><span class="step-num">03</span><div class="step-icon">⚙️</div></div>
                         <h3>Smart Cross-Match</h3>
-                        <p>
-                            The system scans registered donors against the biological compatibility matrix and current 90-day cooldown status.
-                        </p>
+                        <p>The system scans registered donors against the biological compatibility matrix and current 90-day cooldown status.</p>
                     </div>
-
-                    <!-- Step 4 -->
                     <div class="timeline-step">
-                        <div class="step-header">
-                            <span class="step-num">04</span>
-                            <div class="step-icon">📞</div>
-                        </div>
+                        <div class="step-header"><span class="step-num">04</span><div class="step-icon">📞</div></div>
                         <h3>Direct Connection</h3>
-                        <p>
-                            The requestor views ranked compatible donors with direct one-touch call and message capabilities to secure blood units.
-                        </p>
+                        <p>The requestor views ranked compatible donors with direct one-touch call and message capabilities to secure blood units.</p>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =================================================
-             5. INTERACTIVE BLOOD COMPATIBILITY MATRIX
-        ================================================== -->
+        <!-- COMPATIBILITY MATRIX -->
         <section class="about-section about-section-alt" id="compatibility">
-
             <div class="about-container">
-
                 <div class="section-head">
                     <span class="section-eyebrow">MEDICAL REFERENCE GUIDE</span>
-                    <h2 class="section-title">
-                        Blood Group <span>Compatibility Matrix</span>
-                    </h2>
-                    <p class="section-subtitle">
-                        Our matching engine strictly validates these standard biological ABO & Rh factor transfusion rules.
-                    </p>
+                    <h2 class="section-title">Blood Group <span>Compatibility Matrix</span></h2>
+                    <p class="section-subtitle">Our matching engine strictly validates these standard biological ABO & Rh factor transfusion rules.</p>
                 </div>
 
                 <div class="matrix-container">
-
                     <div class="matrix-legend">
                         <div class="legend-items">
-                            <div class="legend-item">
-                                <span class="legend-dot dot-universal-donor"></span>
-                                <span><strong>O−</strong> is the Universal Red Cell Donor</span>
-                            </div>
-                            <div class="legend-item">
-                                <span class="legend-dot dot-universal-recipient"></span>
-                                <span><strong>AB+</strong> is the Universal Recipient</span>
-                            </div>
+                            <div class="legend-item"><span class="legend-dot dot-universal-donor"></span><span><strong>O−</strong> is the Universal Red Cell Donor</span></div>
+                            <div class="legend-item"><span class="legend-dot dot-universal-recipient"></span><span><strong>AB+</strong> is the Universal Recipient</span></div>
                         </div>
-                        <div class="legend-item">
-                            <span><em>*All 8 blood groups supported</em></span>
-                        </div>
+                        <div class="legend-item"><span><em>*All 8 blood groups supported</em></span></div>
                     </div>
 
                     <div class="matrix-table-wrapper">
@@ -418,316 +218,148 @@
                             <tbody>
                                 <tr>
                                     <td><span class="blood-type-badge">O−</span></td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">Everyone (All 8 Groups)</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">O− only</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">Everyone (All 8 Groups)</span></div></td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">O− only</span></div></td>
                                     <td><span class="special-badge-donor">Universal Donor</span></td>
                                 </tr>
-
                                 <tr>
                                     <td><span class="blood-type-badge">O+</span></td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">O+</span>
-                                            <span class="blood-tag-sm">A+</span>
-                                            <span class="blood-tag-sm">B+</span>
-                                            <span class="blood-tag-sm">AB+</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">O+</span>
-                                            <span class="blood-tag-sm">O−</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">O+</span><span class="blood-tag-sm">A+</span><span class="blood-tag-sm">B+</span><span class="blood-tag-sm">AB+</span></div></td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">O+</span><span class="blood-tag-sm">O−</span></div></td>
                                     <td>Most Requested Type</td>
                                 </tr>
-
                                 <tr>
                                     <td><span class="blood-type-badge">A−</span></td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">A−</span>
-                                            <span class="blood-tag-sm">A+</span>
-                                            <span class="blood-tag-sm">AB−</span>
-                                            <span class="blood-tag-sm">AB+</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">A−</span>
-                                            <span class="blood-tag-sm">O−</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">A−</span><span class="blood-tag-sm">A+</span><span class="blood-tag-sm">AB−</span><span class="blood-tag-sm">AB+</span></div></td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">A−</span><span class="blood-tag-sm">O−</span></div></td>
                                     <td>Rare & Vital</td>
                                 </tr>
-
                                 <tr>
                                     <td><span class="blood-type-badge">A+</span></td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">A+</span>
-                                            <span class="blood-tag-sm">AB+</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">A+</span>
-                                            <span class="blood-tag-sm">A−</span>
-                                            <span class="blood-tag-sm">O+</span>
-                                            <span class="blood-tag-sm">O−</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">A+</span><span class="blood-tag-sm">AB+</span></div></td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">A+</span><span class="blood-tag-sm">A−</span><span class="blood-tag-sm">O+</span><span class="blood-tag-sm">O−</span></div></td>
                                     <td>Common Blood Group</td>
                                 </tr>
-
                                 <tr>
                                     <td><span class="blood-type-badge">B−</span></td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">B−</span>
-                                            <span class="blood-tag-sm">B+</span>
-                                            <span class="blood-tag-sm">AB−</span>
-                                            <span class="blood-tag-sm">AB+</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">B−</span>
-                                            <span class="blood-tag-sm">O−</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">B−</span><span class="blood-tag-sm">B+</span><span class="blood-tag-sm">AB−</span><span class="blood-tag-sm">AB+</span></div></td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">B−</span><span class="blood-tag-sm">O−</span></div></td>
                                     <td>Rare Type</td>
                                 </tr>
-
                                 <tr>
                                     <td><span class="blood-type-badge">B+</span></td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">B+</span>
-                                            <span class="blood-tag-sm">AB+</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">B+</span>
-                                            <span class="blood-tag-sm">B−</span>
-                                            <span class="blood-tag-sm">O+</span>
-                                            <span class="blood-tag-sm">O−</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">B+</span><span class="blood-tag-sm">AB+</span></div></td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">B+</span><span class="blood-tag-sm">B−</span><span class="blood-tag-sm">O+</span><span class="blood-tag-sm">O−</span></div></td>
                                     <td>High Demand in Asia</td>
                                 </tr>
-
                                 <tr>
                                     <td><span class="blood-type-badge">AB−</span></td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">AB−</span>
-                                            <span class="blood-tag-sm">AB+</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">AB−</span>
-                                            <span class="blood-tag-sm">A−</span>
-                                            <span class="blood-tag-sm">B−</span>
-                                            <span class="blood-tag-sm">O−</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">AB−</span><span class="blood-tag-sm">AB+</span></div></td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">AB−</span><span class="blood-tag-sm">A−</span><span class="blood-tag-sm">B−</span><span class="blood-tag-sm">O−</span></div></td>
                                     <td>Rarest Blood Type (&lt;1%)</td>
                                 </tr>
-
                                 <tr>
                                     <td><span class="blood-type-badge">AB+</span></td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">AB+ only</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="blood-tags-list">
-                                            <span class="blood-tag-sm">Everyone (All 8 Groups)</span>
-                                        </div>
-                                    </td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">AB+ only</span></div></td>
+                                    <td><div class="blood-tags-list"><span class="blood-tag-sm">Everyone (All 8 Groups)</span></div></td>
                                     <td><span class="special-badge-recipient">Universal Recipient</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =================================================
-             6. BEE ACADEMIC PROJECT SPOTLIGHT
-        ================================================== -->
+        <!-- ACADEMIC PROJECT -->
         <section class="about-section">
-
             <div class="about-container">
-
                 <div class="bee-project-card">
-
-                    <div class="bee-badge">
-                        🎓 Academic Showcase • BEE Project
-                    </div>
-
+                    <div class="bee-badge">🎓 Academic Showcase • BEE Project</div>
                     <div class="bee-content">
-                        <h2>
-                            Engineering for <span>Humanity & Community</span>
-                        </h2>
-
-                        <p>
-                            BloodConnect is conceived and engineered as a core technical project under the Basic Engineering & Computing curriculum (BEE). The project demonstrates how fundamental software engineering principles, asynchronous state synchronization, client-side data persistence, and human-centric design patterns can directly tackle real-world medical challenges.
-                        </p>
-
+                        <h2>Engineering for <span>Humanity & Community</span></h2>
+                        <p>BloodConnect is conceived and engineered as a core technical project under the Basic Engineering & Computing curriculum (BEE). The project demonstrates how fundamental software engineering principles, asynchronous state synchronization, client-side data persistence, and human-centric design patterns can directly tackle real-world medical challenges.</p>
                         <div class="bee-tech-grid">
-
                             <div class="bee-tech-card">
                                 <div class="bee-tech-icon">🌐</div>
                                 <h4>HTML5 & Semantic UI</h4>
                                 <p>Accessible, structured markup adhering to modern web usability standards.</p>
                             </div>
-
                             <div class="bee-tech-card">
                                 <div class="bee-tech-icon">🎨</div>
                                 <h4>CSS3 Design Tokens</h4>
                                 <p>Custom glassmorphism, responsive grid layouts, and crimson accent palettes.</p>
                             </div>
-
                             <div class="bee-tech-card">
                                 <div class="bee-tech-icon">⚡</div>
                                 <h4>Modular ES6 JavaScript</h4>
                                 <p>Clean separation of concerns across auth, matching, and eligibility services.</p>
                             </div>
-
                             <div class="bee-tech-card">
                                 <div class="bee-tech-icon">💾</div>
                                 <h4>Client State Storage</h4>
                                 <p>Zero-dependency LocalStorage architecture for multi-session data persistence.</p>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =================================================
-             7. PROJECT TEAM / CONTRIBUTORS
-        ================================================== -->
+        <!-- TEAM -->
         <section class="about-section about-section-alt">
-
             <div class="about-container">
-
                 <div class="section-head">
                     <span class="section-eyebrow">THE BUILDERS</span>
-                    <h2 class="section-title">
-                        Behind <span>BloodConnect</span>
-                    </h2>
-                    <p class="section-subtitle">
-                        Developed with passion and engineering dedication to create a functional, impactful digital solution for blood donation management.
-                    </p>
+                    <h2 class="section-title">Behind <span>BloodConnect</span></h2>
+                    <p class="section-subtitle">Developed with passion and engineering dedication to create a functional, impactful digital solution for blood donation management.</p>
                 </div>
-
                 <div class="team-grid">
-
-                    <!-- Team Member 1: Akanksha Mahajan -->
                     <div class="team-card">
-                        <div class="team-avatar-box">
-                            AM
-                        </div>
+                        <div class="team-avatar-box">AM</div>
                         <div class="team-name">Akanksha Mahajan</div>
-                        <div class="team-role"> Matching Logic & System Architecture</div>
-                        <p class="team-bio">
-                            Led overall project architecture, authentication & user sessions, core application data flows, and system integration for the BEE initiative.
-                        </p>
+                        <div class="team-role">Matching Logic & System Architecture</div>
+                        <p class="team-bio">Led overall project architecture, authentication & user sessions, core application data flows, and system integration for the BEE initiative.</p>
                         <div class="team-badges">
                             <span class="team-badge">Matching Engine</span>
                             <span class="team-badge">System Design</span>
                             <span class="team-badge">Auth & State</span>
                         </div>
                     </div>
-
-                    <!-- Team Member 2: Srsh Sohanpal -->
                     <div class="team-card">
-                        <div class="team-avatar-box">
-                            SS
-                        </div>
+                        <div class="team-avatar-box">SS</div>
                         <div class="team-name">Arsh Sohanpal</div>
                         <div class="team-role">Backend Engineering</div>
-                        <p class="team-bio">
-                            Engineered the rule-based ABO/Rh blood compatibility engine, 90-day cooldown safety calculations, and emergency request ranking algorithms.
-                        </p>
+                        <p class="team-bio">Engineered the rule-based ABO/Rh blood compatibility engine, 90-day cooldown safety calculations, and emergency request ranking algorithms.</p>
                         <div class="team-badges">
                             <span class="team-badge">Algorithm Design</span>
                             <span class="team-badge">Data Logic</span>
                         </div>
                     </div>
-
-                    <!-- Team Member 3: Yashu -->
                     <div class="team-card">
-                        <div class="team-avatar-box">
-                            YS
-                        </div>
+                        <div class="team-avatar-box">YS</div>
                         <div class="team-name">Yashu</div>
                         <div class="team-role">Frontend & UI/UX Development</div>
-                        <p class="team-bio">
-                            Crafted responsive interfaces, custom CSS design tokens, dynamic interactive components.
-                        </p>
+                        <p class="team-bio">Crafted responsive interfaces, custom CSS design tokens, dynamic interactive components.</p>
                         <div class="team-badges">
                             <span class="team-badge">UI/UX Design</span>
                             <span class="team-badge">CSS3 Styling</span>
                             <span class="team-badge">Responsive Web</span>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =================================================
-             8. FREQUENTLY ASKED QUESTIONS (FAQ)
-        ================================================== -->
+        <!-- FAQ -->
         <section class="about-section">
-
             <div class="about-container">
-
                 <div class="section-head">
                     <span class="section-eyebrow">COMMON QUESTIONS</span>
-                    <h2 class="section-title">
-                        Frequently Asked <span>Questions</span>
-                    </h2>
-                    <p class="section-subtitle">
-                        Find answers to common questions regarding blood donation eligibility, matching logic, and how to use BloodConnect.
-                    </p>
+                    <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+                    <p class="section-subtitle">Find answers to common questions regarding blood donation eligibility, matching logic, and how to use BloodConnect.</p>
                 </div>
-
                 <div class="faq-wrap">
-
-                    <!-- FAQ 1 -->
                     <div class="faq-item active">
                         <div class="faq-question">
                             <span>How does the BloodConnect matching algorithm work?</span>
@@ -737,8 +369,6 @@
                             BloodConnect uses a deterministic rule-based biological cross-match matrix based on the ABO and Rh factor transfusion protocols. When a request is created for a particular blood group (e.g., A+), the system filters the donor registry to locate all medically compatible blood types (e.g., A+, A-, O+, O-), verifies that the donor is currently eligible (past their 90-day cooldown), and matches by geographic city location.
                         </div>
                     </div>
-
-                    <!-- FAQ 2 -->
                     <div class="faq-item">
                         <div class="faq-question">
                             <span>Who is eligible to donate blood?</span>
@@ -748,8 +378,6 @@
                             Generally, individuals aged 18 to 65 years, weighing at least 50 kg (110 lbs), with normal hemoglobin levels (≥ 12.5 g/dL) and good general health are eligible. Individuals must not have had tattoos or major surgery in the last 6 months and must adhere to the mandatory 90-day interval between donations.
                         </div>
                     </div>
-
-                    <!-- FAQ 3 -->
                     <div class="faq-item">
                         <div class="faq-question">
                             <span>Why is there a 90-day cooldown period between donations?</span>
@@ -759,8 +387,6 @@
                             After a whole blood donation, the human body replenishes fluid plasma within 24–48 hours, but red blood cells and iron reserves take approximately 8 to 12 weeks to fully regenerate. The 90-day (3-month) safety cooldown protects donors from anemia and fatigue while ensuring high-quality blood for recipients.
                         </div>
                     </div>
-
-                    <!-- FAQ 4 -->
                     <div class="faq-item">
                         <div class="faq-question">
                             <span>Is BloodConnect completely free to use?</span>
@@ -770,8 +396,6 @@
                             Yes! BloodConnect is 100% free and built as an academic social impact project for Basic Electrical & Electronics / Computing (BEE). There are no fees, subscriptions, or commercial transactions involved.
                         </div>
                     </div>
-
-                    <!-- FAQ 5 -->
                     <div class="faq-item">
                         <div class="faq-question">
                             <span>How is my donor information stored and protected?</span>
@@ -781,62 +405,37 @@
                             BloodConnect stores donor and request records securely in local client state (`localStorage`) without sending your private personal data to unverified third-party ad networks or brokers. You can manage your donor profile anytime from your personalized dashboard.
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =================================================
-             9. PROJECT FEEDBACK & EVALUATION FORM
-        ================================================== -->
+        <!-- FEEDBACK -->
         <section class="about-section about-section-alt" id="feedback">
-
             <div class="about-container">
-
                 <div class="section-head">
                     <span class="section-eyebrow">COMMUNITY & PROJECT REVIEWS</span>
-                    <h2 class="section-title">
-                        Share Your <span>Feedback & Reviews</span>
-                    </h2>
-                    <p class="section-subtitle">
-                        Help us evaluate and improve BloodConnect! Your feedback provides direct validation for our BEE Academic Project and helps refine our matching engine.
-                    </p>
+                    <h2 class="section-title">Share Your <span>Feedback & Reviews</span></h2>
+                    <p class="section-subtitle">Help us evaluate and improve BloodConnect! Your feedback provides direct validation for our BEE Academic Project and helps refine our matching engine.</p>
                 </div>
 
                 <div class="feedback-grid">
-
-                    <!-- LEFT: THE FEEDBACK FORM -->
+                    <!-- FEEDBACK FORM -->
                     <div class="feedback-form-card" id="feedbackFormCard">
-
-                        <!-- Logged-in indicator pill if active -->
-                        <div id="feedbackUserStatus" style="display: none;"></div>
-
+                        <div id="feedbackUserStatus" style="display:none;"></div>
                         <div id="formFieldsContainer">
                             <h3>Submit Your Feedback</h3>
-                            <p class="feedback-form-subtitle">
-                                Tell us what you think of the BloodConnect platform, features, or design.
-                            </p>
-
+                            <p class="feedback-form-subtitle">Tell us what you think of the BloodConnect platform, features, or design.</p>
                             <form id="projectFeedbackForm" class="feedback-form" novalidate>
-
-                                <!-- NAME & EMAIL ROW -->
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="fbName">Your Name <span style="color:var(--red)">*</span></label>
                                         <input type="text" id="fbName" name="name" placeholder="e.g., Prof. Sharma / Rahul V." required>
                                     </div>
-
                                     <div class="form-group">
                                         <label for="fbEmail">Your Email <span style="color:var(--red)">*</span></label>
                                         <input type="email" id="fbEmail" name="email" placeholder="e.g., rahul@example.com" required>
                                     </div>
                                 </div>
-
-                                <!-- ROLE & CATEGORY ROW -->
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="fbRole">Who are you? <span style="color:var(--red)">*</span></label>
@@ -850,7 +449,6 @@
                                             <option value="General Visitor">General Visitor</option>
                                         </select>
                                     </div>
-
                                     <div class="form-group">
                                         <label for="fbCategory">Feedback Category <span style="color:var(--red)">*</span></label>
                                         <select id="fbCategory" name="category" required>
@@ -863,14 +461,11 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <!-- STAR RATING WIDGET -->
                                 <div class="feedback-rating-wrapper">
                                     <div class="rating-label-wrap">
                                         <span class="rating-title">Project Rating <span style="color:var(--red)">*</span></span>
                                         <span class="rating-status-text" id="ratingStatusText">5 Stars — Outstanding Project!</span>
                                     </div>
-
                                     <div class="star-rating-buttons" id="starRatingGroup">
                                         <button type="button" class="star-btn active" data-rating="1" title="1 Star">★</button>
                                         <button type="button" class="star-btn active" data-rating="2" title="2 Stars">★</button>
@@ -880,8 +475,6 @@
                                     </div>
                                     <input type="hidden" id="fbRating" name="rating" value="5">
                                 </div>
-
-                                <!-- RECOMMENDATION RADIO PILLS -->
                                 <div class="form-group">
                                     <label>Would you recommend BloodConnect for emergency donation?</label>
                                     <div class="recommend-pills">
@@ -899,8 +492,6 @@
                                         </label>
                                     </div>
                                 </div>
-
-                                <!-- MESSAGE TEXTAREA -->
                                 <div class="form-group">
                                     <label for="fbMessage">
                                         <span>Your Detailed Review / Comments <span style="color:var(--red)">*</span></span>
@@ -908,35 +499,22 @@
                                     </label>
                                     <textarea id="fbMessage" name="message" maxlength="500" placeholder="Share your experience, evaluation remarks, or suggestions for the team..." required></textarea>
                                 </div>
-
-                                <!-- SUBMIT BUTTON -->
                                 <button type="submit" class="feedback-submit-btn" id="fbSubmitBtn">
                                     <span>Submit Project Review</span>
                                     <span>→</span>
                                 </button>
-
                             </form>
                         </div>
-
-                        <!-- SUCCESS STATE (hidden by default) -->
-                        <div class="feedback-success-state" id="feedbackSuccessState" style="display: none;">
+                        <div class="feedback-success-state" id="feedbackSuccessState" style="display:none;">
                             <div class="success-check-icon">✓</div>
                             <h4>Thank You For Your Feedback!</h4>
-                            <p id="successMessageText">
-                                Your review has been saved in our local state database and added to our live community reviews stream.
-                            </p>
-                            <button type="button" class="reset-feedback-btn" id="submitAnotherBtn">
-                                ＋ Submit Another Review
-                            </button>
+                            <p id="successMessageText">Your review has been saved in our local state database and added to our live community reviews stream.</p>
+                            <button type="button" class="reset-feedback-btn" id="submitAnotherBtn">＋ Submit Another Review</button>
                         </div>
-
                     </div>
 
-
-                    <!-- RIGHT: SIDEBAR & LIVE REVIEWS STREAM -->
+                    <!-- REVIEWS SIDEBAR -->
                     <div class="feedback-sidebar">
-
-                        <!-- SUMMARY SCORE CARD -->
                         <div class="feedback-summary-card">
                             <div class="summary-top">
                                 <div>
@@ -945,12 +523,8 @@
                                 </div>
                                 <span class="summary-stat-pill" id="totalReviewsPill">12 Reviews</span>
                             </div>
-                            <p class="summary-desc">
-                                Community & academic rating for the BloodConnect donor matching platform (BEE Project).
-                            </p>
+                            <p class="summary-desc">Community & academic rating for the BloodConnect donor matching platform (BEE Project).</p>
                         </div>
-
-                        <!-- REVIEWS STREAM CONTAINER -->
                         <div class="reviews-wall-container">
                             <div class="reviews-wall-header">
                                 <div class="reviews-wall-title">
@@ -958,116 +532,59 @@
                                     <span class="reviews-count-badge" id="liveStreamBadge">Live</span>
                                 </div>
                             </div>
-
-                            <div class="reviews-stream" id="reviewsStreamList">
-                                <!-- Populated dynamically by JavaScript -->
-                            </div>
+                            <div class="reviews-stream" id="reviewsStreamList"></div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =================================================
-             10. CALL TO ACTION (CTA)
-        ================================================== -->
-        <section class="about-section" style="padding-top: 20px;">
-
+        <!-- CTA -->
+        <section class="about-section" style="padding-top:20px;">
             <div class="about-container">
-
                 <div class="about-cta-banner">
-
                     <div class="about-cta-content">
                         <h2>Ready to make a life-saving difference?</h2>
-                        <p>
-                            A single blood donation takes just 15 minutes and can save up to 3 to 4 human lives. Register today or find a verified compatible donor nearby.
-                        </p>
-
+                        <p>A single blood donation takes just 15 minutes and can save up to 3 to 4 human lives. Register today or find a verified compatible donor nearby.</p>
                         <div class="about-cta-buttons">
-                            <a href="donor.html" class="cta-white-btn" onclick="protectedNavigation('donor.html'); return false;">
-                                Become a Donor
-                                <span>→</span>
-                            </a>
-
-                            <a href="search.html" class="cta-outline-btn">
-                                Find Blood Immediately
-                            </a>
+                            <a href="donor.html" class="cta-white-btn" onclick="protectedNavigation('donor.html'); return false;">Become a Donor <span>→</span></a>
+                            <a href="search.html" class="cta-outline-btn">Find Blood Immediately</a>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
     </main>
 
-
-    <!-- =====================================================
-         FOOTER
-    ===================================================== -->
     <footer>
-
         <div class="footer-logo">
             <span class="footer-drop">▼</span>
             Blood<span>Connect</span>
         </div>
-
-        <p>
-            Find Blood. Save Lives. • Academic BEE Project
-        </p>
-
-        <p class="footer-copy">
-            © 2026 BloodConnect • Dedicated to voluntary blood donation and healthcare engineering.
-        </p>
-
+        <p>Find Blood. Save Lives. • Academic BEE Project</p>
+        <p class="footer-copy">© 2026 BloodConnect • Dedicated to voluntary blood donation and healthcare engineering.</p>
     </footer>
 
-
-    <!-- =====================================================
-         JAVASCRIPT & INTERACTION SCRIPTS
-    ===================================================== -->
     <script src="../js/auth.js"></script>
-
     <script>
-        // ==========================================
-        // 1. Interactive FAQ Accordion
-        // ==========================================
         document.addEventListener('DOMContentLoaded', function () {
+            // FAQ Accordion
             const faqItems = document.querySelectorAll('.faq-item');
-
-            faqItems.forEach(item => {
+            faqItems.forEach(function (item) {
                 const question = item.querySelector('.faq-question');
                 if (question) {
-                    question.addEventListener('click', () => {
+                    question.addEventListener('click', function () {
                         const isActive = item.classList.contains('active');
-
-                        faqItems.forEach(otherItem => {
-                            otherItem.classList.remove('active');
-                        });
-
-                        if (!isActive) {
-                            item.classList.add('active');
-                        }
+                        faqItems.forEach(function (i) { i.classList.remove('active'); });
+                        if (!isActive) item.classList.add('active');
                     });
                 }
             });
 
-            // Initialize Feedback System
             initFeedbackSystem();
         });
 
-
-        // ==========================================
-        // 2. Fully Working Feedback Engine
-        // ==========================================
         const FEEDBACK_STORAGE_KEY = "bloodConnectFeedbacks";
 
         const RATING_DESCRIPTIONS = {
@@ -1087,7 +604,7 @@
                 rating: 5,
                 recommend: "Yes, Definitely! 🔥",
                 message: "Brilliant engineering implementation for a sophomore project! The ABO/Rh compatibility algorithm and 90-day cooldown logic show great real-world application thinking.",
-                timestamp: Date.now() - (1000 * 60 * 60 * 2) // 2 hours ago
+                timestamp: Date.now() - (1000 * 60 * 60 * 2)
             },
             {
                 id: "fb_seed_2",
@@ -1097,7 +614,7 @@
                 rating: 5,
                 recommend: "Yes, Definitely! 🔥",
                 message: "As a regular O-negative donor, I appreciate the clean focus on privacy and no unnecessary spam. The next eligible donation calculator is extremely helpful!",
-                timestamp: Date.now() - (1000 * 60 * 60 * 18) // 18 hours ago
+                timestamp: Date.now() - (1000 * 60 * 60 * 18)
             },
             {
                 id: "fb_seed_3",
@@ -1107,7 +624,7 @@
                 rating: 5,
                 recommend: "Yes, Definitely! 🔥",
                 message: "The design system and crimson visual palette look top-tier. Great job Akanksha, Srsh, and Yashu on pulling this together!",
-                timestamp: Date.now() - (1000 * 60 * 60 * 36) // 1.5 days ago
+                timestamp: Date.now() - (1000 * 60 * 60 * 36)
             }
         ];
 
@@ -1130,76 +647,60 @@
         }
 
         function initFeedbackSystem() {
-            const form = document.getElementById("projectFeedbackForm");
-            const nameInput = document.getElementById("fbName");
-            const emailInput = document.getElementById("fbEmail");
-            const msgInput = document.getElementById("fbMessage");
-            const charCounter = document.getElementById("charCounter");
-            const ratingInput = document.getElementById("fbRating");
-            const ratingStatus = document.getElementById("ratingStatusText");
-            const starBtns = document.querySelectorAll(".star-btn");
-            const userStatus = document.getElementById("feedbackUserStatus");
+            const form               = document.getElementById("projectFeedbackForm");
+            const nameInput          = document.getElementById("fbName");
+            const emailInput         = document.getElementById("fbEmail");
+            const msgInput           = document.getElementById("fbMessage");
+            const charCounter        = document.getElementById("charCounter");
+            const ratingInput        = document.getElementById("fbRating");
+            const ratingStatus       = document.getElementById("ratingStatusText");
+            const starBtns           = document.querySelectorAll(".star-btn");
+            const userStatus         = document.getElementById("feedbackUserStatus");
             const formFieldsContainer = document.getElementById("formFieldsContainer");
-            const successState = document.getElementById("feedbackSuccessState");
-            const submitAnotherBtn = document.getElementById("submitAnotherBtn");
+            const successState       = document.getElementById("feedbackSuccessState");
+            const submitAnotherBtn   = document.getElementById("submitAnotherBtn");
 
-            // 1. Auto-fill if user is logged in
+            // Auto-fill if logged in
             if (typeof getCurrentUser === "function") {
                 const currentUser = getCurrentUser();
                 if (currentUser) {
-                    if (nameInput) nameInput.value = currentUser.name || "";
+                    if (nameInput)  nameInput.value  = currentUser.name  || "";
                     if (emailInput) emailInput.value = currentUser.email || "";
-
                     if (userStatus) {
                         userStatus.style.display = "inline-flex";
-                        userStatus.className = "feedback-user-pill";
-                        userStatus.innerHTML = `<span></span> Verified User: <strong>${escapeHTML(currentUser.name)}</strong>`;
+                        userStatus.className     = "feedback-user-pill";
+                        userStatus.innerHTML     = `<span></span> Verified User: <strong>${escapeHTML(currentUser.name)}</strong>`;
                     }
                 }
             }
 
-            // 2. Character counter for textarea
+            // Character counter
             if (msgInput && charCounter) {
                 msgInput.addEventListener("input", function () {
                     charCounter.textContent = `${this.value.length} / 500`;
                 });
             }
 
-            // 3. Interactive Star Rating handling
+            // Star rating
             let currentRating = 5;
 
             function updateStarDisplay(rating) {
-                starBtns.forEach(btn => {
-                    const btnRating = parseInt(btn.getAttribute("data-rating"), 10);
-                    if (btnRating <= rating) {
-                        btn.classList.add("active");
-                    } else {
-                        btn.classList.remove("active");
-                    }
+                starBtns.forEach(function (btn) {
+                    btn.classList.toggle("active", parseInt(btn.getAttribute("data-rating"), 10) <= rating);
                 });
-                if (ratingStatus) {
-                    ratingStatus.textContent = RATING_DESCRIPTIONS[rating] || `${rating} Stars`;
-                }
+                if (ratingStatus) ratingStatus.textContent = RATING_DESCRIPTIONS[rating] || `${rating} Stars`;
             }
 
-            starBtns.forEach(btn => {
+            starBtns.forEach(function (btn) {
                 const rating = parseInt(btn.getAttribute("data-rating"), 10);
-
                 btn.addEventListener("mouseenter", function () {
-                    starBtns.forEach(b => {
-                        const r = parseInt(b.getAttribute("data-rating"), 10);
-                        if (r <= rating) {
-                            b.classList.add("hover");
-                        } else {
-                            b.classList.remove("hover");
-                        }
+                    starBtns.forEach(function (b) {
+                        b.classList.toggle("hover", parseInt(b.getAttribute("data-rating"), 10) <= rating);
                     });
                 });
-
                 btn.addEventListener("mouseleave", function () {
-                    starBtns.forEach(b => b.classList.remove("hover"));
+                    starBtns.forEach(function (b) { b.classList.remove("hover"); });
                 });
-
                 btn.addEventListener("click", function () {
                     currentRating = rating;
                     if (ratingInput) ratingInput.value = currentRating;
@@ -1207,148 +708,100 @@
                 });
             });
 
-            // 4. Handle Form Submission
+            // Form submission
             if (form) {
                 form.addEventListener("submit", function (e) {
                     e.preventDefault();
 
-                    const name = nameInput.value.trim();
-                    const email = emailInput.value.trim();
-                    const role = document.getElementById("fbRole").value;
-                    const category = document.getElementById("fbCategory").value;
-                    const rating = parseInt(ratingInput.value, 10) || 5;
-                    const message = msgInput.value.trim();
-                    const recommendInput = document.querySelector('input[name="recommend"]:checked');
-                    const recommend = recommendInput ? recommendInput.value : "Yes, Definitely! 🔥";
+                    const name      = nameInput.value.trim();
+                    const email     = emailInput.value.trim();
+                    const role      = document.getElementById("fbRole").value;
+                    const category  = document.getElementById("fbCategory").value;
+                    const rating    = parseInt(ratingInput.value, 10) || 5;
+                    const message   = msgInput.value.trim();
+                    const recInput  = document.querySelector('input[name="recommend"]:checked');
+                    const recommend = recInput ? recInput.value : "Yes, Definitely! 🔥";
 
-                    // Basic validation
-                    if (!name) {
-                        alert("Please enter your name.");
-                        nameInput.focus();
-                        return;
-                    }
-                    if (!email || !email.includes("@")) {
-                        alert("Please enter a valid email address.");
-                        emailInput.focus();
-                        return;
-                    }
-                    if (!role) {
-                        alert("Please select your role / designation.");
-                        document.getElementById("fbRole").focus();
-                        return;
-                    }
-                    if (!message) {
-                        alert("Please enter your feedback comments.");
-                        msgInput.focus();
-                        return;
-                    }
+                    if (!name)                       { alert("Please enter your name.");              nameInput.focus();  return; }
+                    if (!email || !email.includes("@")) { alert("Please enter a valid email address."); emailInput.focus(); return; }
+                    if (!role)                       { alert("Please select your role.");             document.getElementById("fbRole").focus(); return; }
+                    if (!message)                    { alert("Please enter your feedback comments."); msgInput.focus();   return; }
 
-                    const newFeedback = {
-                        id: "fb_" + Date.now(),
-                        name: name,
-                        email: email,
-                        role: role,
-                        category: category,
-                        rating: rating,
-                        recommend: recommend,
-                        message: message,
-                        timestamp: Date.now()
-                    };
-
-                    // Save to local storage
+                    const newFeedback = { id: "fb_" + Date.now(), name, email, role, category, rating, recommend, message, timestamp: Date.now() };
                     const allFeedbacks = getStoredFeedbacks();
                     allFeedbacks.unshift(newFeedback);
                     saveStoredFeedbacks(allFeedbacks);
 
-                    // Update UI state
                     if (formFieldsContainer) formFieldsContainer.style.display = "none";
-                    if (successState) successState.style.display = "block";
+                    if (successState)        successState.style.display        = "block";
 
                     const successMsg = document.getElementById("successMessageText");
                     if (successMsg) {
                         successMsg.innerHTML = `Thank you, <strong>${escapeHTML(name)}</strong>! Your ${rating}-star feedback has been registered and is now live on our review stream.`;
                     }
 
-                    // Refresh reviews list
                     renderReviewsStream();
                 });
             }
 
-            // 5. Submit Another Review button
+            // Submit another
             if (submitAnotherBtn) {
                 submitAnotherBtn.addEventListener("click", function () {
                     if (form) form.reset();
                     currentRating = 5;
-                    if (ratingInput) ratingInput.value = "5";
+                    if (ratingInput)  ratingInput.value  = "5";
+                    if (charCounter)  charCounter.textContent = "0 / 500";
                     updateStarDisplay(5);
-                    if (charCounter) charCounter.textContent = "0 / 500";
 
-                    // Restore user info if logged in
                     if (typeof getCurrentUser === "function") {
                         const currentUser = getCurrentUser();
                         if (currentUser) {
-                            if (nameInput) nameInput.value = currentUser.name || "";
+                            if (nameInput)  nameInput.value  = currentUser.name  || "";
                             if (emailInput) emailInput.value = currentUser.email || "";
                         }
                     }
 
-                    if (successState) successState.style.display = "none";
+                    if (successState)        successState.style.display        = "none";
                     if (formFieldsContainer) formFieldsContainer.style.display = "block";
                 });
             }
 
-            // Initial render of reviews list & stats
             renderReviewsStream();
         }
 
         function formatTimeAgo(timestamp) {
-            const now = Date.now();
-            const diffMs = now - timestamp;
-            const diffMins = Math.floor(diffMs / (1000 * 60));
-            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-            if (diffMins < 2) return "Just now";
-            if (diffMins < 60) return `${diffMins}m ago`;
+            const diffMs   = Date.now() - timestamp;
+            const diffMins  = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays  = Math.floor(diffMs / 86400000);
+            if (diffMins < 2)   return "Just now";
+            if (diffMins < 60)  return `${diffMins}m ago`;
             if (diffHours < 24) return `${diffHours}h ago`;
             if (diffDays === 1) return "Yesterday";
             return `${diffDays} days ago`;
         }
 
         function renderReviewsStream() {
-            const listContainer = document.getElementById("reviewsStreamList");
+            const listContainer    = document.getElementById("reviewsStreamList");
             const totalReviewsPill = document.getElementById("totalReviewsPill");
-            const avgScoreDisplay = document.getElementById("avgScoreDisplay");
-            const avgStarsVisual = document.getElementById("avgStarsVisual");
-
+            const avgScoreDisplay  = document.getElementById("avgScoreDisplay");
+            const avgStarsVisual   = document.getElementById("avgStarsVisual");
             if (!listContainer) return;
 
-            const feedbacks = getStoredFeedbacks();
+            const feedbacks  = getStoredFeedbacks();
+            const totalRating = feedbacks.reduce(function (sum, f) { return sum + (f.rating || 5); }, 0);
+            const avg         = feedbacks.length ? (totalRating / feedbacks.length).toFixed(1) : "5.0";
 
-            // Calculate metrics
-            let totalRating = 0;
-            feedbacks.forEach(f => { totalRating += (f.rating || 5); });
-            const avg = feedbacks.length ? (totalRating / feedbacks.length).toFixed(1) : "5.0";
-
-            if (avgScoreDisplay) avgScoreDisplay.textContent = avg;
+            if (avgScoreDisplay)  avgScoreDisplay.textContent  = avg;
             if (totalReviewsPill) totalReviewsPill.textContent = `${feedbacks.length} Reviews`;
-
             if (avgStarsVisual) {
                 const rounded = Math.round(parseFloat(avg));
                 avgStarsVisual.textContent = "★".repeat(rounded) + "☆".repeat(5 - rounded);
             }
 
-            // Render list items
-            listContainer.innerHTML = feedbacks.map(fb => {
-                const initials = (fb.name || "U")
-                    .split(" ")
-                    .map(w => w[0])
-                    .slice(0, 2)
-                    .join("")
-                    .toUpperCase();
-
+            listContainer.innerHTML = feedbacks.map(function (fb) {
+                const initials  = (fb.name || "U").split(" ").map(function (w) { return w[0]; }).slice(0, 2).join("").toUpperCase();
                 const starsHtml = "★".repeat(fb.rating) + "☆".repeat(5 - fb.rating);
-
                 return `
                     <div class="review-item-card">
                         <div class="review-card-head">
@@ -1361,11 +814,8 @@
                             </div>
                             <div class="review-stars">${starsHtml}</div>
                         </div>
-
                         <span class="review-category-badge">${escapeHTML(fb.category || "General Review")}</span>
-
                         <p class="review-comment">"${escapeHTML(fb.message)}"</p>
-
                         <div class="review-card-footer">
                             <span class="review-rec-badge">✓ Recommended</span>
                             <span>${formatTimeAgo(fb.timestamp)}</span>
@@ -1377,5 +827,4 @@
     </script>
 
 </body>
-
 </html>
