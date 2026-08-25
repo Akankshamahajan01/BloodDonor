@@ -188,12 +188,19 @@
                         Password
                     </label>
 
-                    <input
-                        type="password"
-                        id="loginPassword"
-                        placeholder="Enter your password"
-                        required
-                    >
+                    <div class="pw-wrap">
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <button type="button" class="pw-eye" id="toggleLoginPw" aria-label="Show password">👁</button>
+                    </div>
+
+                    <div class="fp-link-row">
+                        <button type="button" class="fp-link" id="forgotPwBtn">Forgot password?</button>
+                    </div>
 
                 </div>
 
@@ -275,6 +282,283 @@
 
 <script src="../js/login.js"></script>
 
-</body>
 
+<!-- ═══════════════════ FORGOT PASSWORD MODAL ═══════════════════ -->
+<div class="dm-overlay" id="fpModal" role="dialog" aria-modal="true" aria-labelledby="fpTitle">
+    <div class="dm-box fp-box">
+
+        <!-- Step 1: Enter email -->
+        <div id="fpStep1">
+            <div class="dm-header">
+                <div class="dm-header-left">
+                    <span class="dm-header-icon">🔑</span>
+                    <div>
+                        <h2 id="fpTitle">Forgot Password</h2>
+                        <p>Enter your registered email address</p>
+                    </div>
+                </div>
+                <button class="dm-close" id="fpClose1" aria-label="Close">✕</button>
+            </div>
+            <div class="fp-body">
+                <div class="form-group">
+                    <label for="fpEmail">Email Address</label>
+                    <input type="email" id="fpEmail" class="fp-input" placeholder="Enter your registered email" autocomplete="email" />
+                </div>
+                <div id="fpMsg1" class="fp-msg" hidden></div>
+                <button type="button" class="fp-btn" id="fpVerifyBtn">Verify Email →</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Set new password -->
+        <div id="fpStep2" hidden>
+            <div class="dm-header">
+                <div class="dm-header-left">
+                    <span class="dm-header-icon">🔒</span>
+                    <div>
+                        <h2>Reset Password</h2>
+                        <p id="fpStep2Sub">Set a new password for your account</p>
+                    </div>
+                </div>
+                <button class="dm-close" id="fpClose2" aria-label="Close">✕</button>
+            </div>
+            <div class="fp-body">
+                <div class="form-group">
+                    <label for="fpNewPw">New Password</label>
+                    <div class="pw-wrap">
+                        <input type="password" id="fpNewPw" class="fp-input" placeholder="Enter new password" autocomplete="new-password" />
+                        <button type="button" class="pw-eye" id="fpToggleNew" aria-label="Show password">👁</button>
+                    </div>
+                    <div class="pw-strength-bar" id="fpPwBar">
+                        <span class="pw-segment" id="fpSeg1"></span>
+                        <span class="pw-segment" id="fpSeg2"></span>
+                        <span class="pw-segment" id="fpSeg3"></span>
+                        <span class="pw-segment" id="fpSeg4"></span>
+                    </div>
+                    <p class="pw-strength-lbl" id="fpPwLbl"></p>
+                </div>
+                <div class="form-group">
+                    <label for="fpConfirmPw">Confirm New Password</label>
+                    <div class="pw-wrap">
+                        <input type="password" id="fpConfirmPw" class="fp-input" placeholder="Confirm new password" autocomplete="new-password" />
+                        <button type="button" class="pw-eye" id="fpToggleConfirm" aria-label="Show confirm password">👁</button>
+                    </div>
+                </div>
+                <div id="fpMsg2" class="fp-msg" hidden></div>
+                <button type="button" class="fp-btn" id="fpResetBtn">Reset Password →</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div id="fpStep3" hidden>
+            <div class="dm-header">
+                <div class="dm-header-left">
+                    <span class="dm-header-icon">✅</span>
+                    <div>
+                        <h2>Password Reset!</h2>
+                        <p>You can now login with your new password</p>
+                    </div>
+                </div>
+                <button class="dm-close" id="fpClose3" aria-label="Close">✕</button>
+            </div>
+            <div class="fp-body fp-success-body">
+                <div class="fp-success-icon">🎉</div>
+                <p class="fp-success-text">Your password has been reset successfully.</p>
+                <button type="button" class="fp-btn" id="fpDoneBtn">Back to Login</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+(function () {
+    var modal    = document.getElementById("fpModal");
+    var trigBtn  = document.getElementById("forgotPwBtn");
+    var step1    = document.getElementById("fpStep1");
+    var step2    = document.getElementById("fpStep2");
+    var step3    = document.getElementById("fpStep3");
+
+    var fpEmail      = document.getElementById("fpEmail");
+    var fpMsg1       = document.getElementById("fpMsg1");
+    var fpVerifyBtn  = document.getElementById("fpVerifyBtn");
+
+    var fpNewPw      = document.getElementById("fpNewPw");
+    var fpConfirmPw  = document.getElementById("fpConfirmPw");
+    var fpMsg2       = document.getElementById("fpMsg2");
+    var fpResetBtn   = document.getElementById("fpResetBtn");
+    var fpStep2Sub   = document.getElementById("fpStep2Sub");
+
+    var verifiedEmail = "";
+
+    /* ── Open / Close ── */
+    function openModal() {
+        resetModal();
+        modal.classList.add("dm-visible");
+        document.body.style.overflow = "hidden";
+        setTimeout(function () { fpEmail.focus(); }, 80);
+    }
+
+    function closeModal() {
+        modal.classList.remove("dm-visible");
+        document.body.style.overflow = "";
+    }
+
+    function resetModal() {
+        step1.hidden = false;
+        step2.hidden = true;
+        step3.hidden = true;
+        fpEmail.value     = "";
+        fpNewPw.value     = "";
+        fpConfirmPw.value = "";
+        fpMsg1.hidden     = true;
+        fpMsg2.hidden     = true;
+        verifiedEmail     = "";
+        resetPwBar();
+    }
+
+    trigBtn.addEventListener("click", openModal);
+    ["fpClose1","fpClose2","fpClose3"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener("click", closeModal);
+    });
+    modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.classList.contains("dm-visible")) closeModal();
+    });
+    document.getElementById("fpDoneBtn").addEventListener("click", closeModal);
+
+    /* ── Show message helpers ── */
+    function showMsg(el, type, text) {
+        el.hidden    = false;
+        el.className = "fp-msg fp-msg-" + type;
+        el.textContent = text;
+    }
+
+    /* ── Step 1: Verify email ── */
+    fpVerifyBtn.addEventListener("click", function () {
+        var email = fpEmail.value.trim().toLowerCase();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showMsg(fpMsg1, "error", "Please enter a valid email address.");
+            return;
+        }
+
+        var users = [];
+        try { users = JSON.parse(localStorage.getItem("bloodConnectUsers")) || []; } catch (e) {}
+        if (!Array.isArray(users)) users = [];
+
+        var found = users.find(function (u) { return u.email === email; });
+        if (!found) {
+            showMsg(fpMsg1, "error", "No account found with this email address.");
+            return;
+        }
+
+        verifiedEmail = email;
+        fpStep2Sub.textContent = "Setting new password for " + email;
+        step1.hidden = true;
+        step2.hidden = false;
+        setTimeout(function () { fpNewPw.focus(); }, 80);
+    });
+
+    /* Allow Enter key on email field */
+    fpEmail.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") { e.preventDefault(); fpVerifyBtn.click(); }
+    });
+
+    /* ── Step 2: Strength meter ── */
+    var segs  = [document.getElementById("fpSeg1"), document.getElementById("fpSeg2"),
+                 document.getElementById("fpSeg3"), document.getElementById("fpSeg4")];
+    var lbl   = document.getElementById("fpPwLbl");
+    var levels = [
+        { color: "#e74c3c", label: "Weak" },
+        { color: "#e67e22", label: "Fair" },
+        { color: "#f1c40f", label: "Good" },
+        { color: "#27ae60", label: "Strong" }
+    ];
+
+    function getScore(val) {
+        var s = 0;
+        if (val.length >= 8)           s++;
+        if (/[A-Z]/.test(val))         s++;
+        if (/[a-z]/.test(val))         s++;
+        if (/[0-9]/.test(val))         s++;
+        if (/[^A-Za-z0-9]/.test(val))  s++;
+        return Math.min(Math.floor(s / 5 * 4), 4);
+    }
+
+    function resetPwBar() {
+        segs.forEach(function (s) { s.style.background = ""; s.classList.remove("pw-seg-active"); });
+        if (lbl) lbl.textContent = "";
+    }
+
+    fpNewPw.addEventListener("input", function () {
+        var val   = fpNewPw.value;
+        var score = getScore(val);
+        segs.forEach(function (s, i) {
+            if (val.length === 0) { s.style.background = ""; s.classList.remove("pw-seg-active"); }
+            else if (i < score)  { s.style.background = levels[Math.max(score-1,0)].color; s.classList.add("pw-seg-active"); }
+            else                 { s.style.background = ""; s.classList.remove("pw-seg-active"); }
+        });
+        lbl.textContent = val.length === 0 ? "" : levels[Math.max(score-1,0)].label;
+        lbl.style.color = val.length === 0 ? "" : levels[Math.max(score-1,0)].color;
+    });
+
+    /* ── Step 2: Reset password ── */
+    fpResetBtn.addEventListener("click", function () {
+        var pw  = fpNewPw.value;
+        var cpw = fpConfirmPw.value;
+
+        var errors = [];
+        if (pw.length < 8)               errors.push("at least 8 characters");
+        if (!/[A-Z]/.test(pw))           errors.push("one uppercase letter");
+        if (!/[a-z]/.test(pw))           errors.push("one lowercase letter");
+        if (!/[0-9]/.test(pw))           errors.push("one number");
+        if (!/[^A-Za-z0-9]/.test(pw))    errors.push("one special character");
+
+        if (errors.length > 0) {
+            showMsg(fpMsg2, "error", "Password must include: " + errors.join(", ") + ".");
+            return;
+        }
+        if (pw !== cpw) {
+            showMsg(fpMsg2, "error", "Passwords do not match.");
+            return;
+        }
+
+        /* Save new password */
+        var users = [];
+        try { users = JSON.parse(localStorage.getItem("bloodConnectUsers")) || []; } catch (e) {}
+        if (!Array.isArray(users)) users = [];
+
+        var idx = users.findIndex(function (u) { return u.email === verifiedEmail; });
+        if (idx === -1) {
+            showMsg(fpMsg2, "error", "Something went wrong. Please try again.");
+            return;
+        }
+        users[idx].password = pw;
+        localStorage.setItem("bloodConnectUsers", JSON.stringify(users));
+
+        step2.hidden = true;
+        step3.hidden = false;
+    });
+
+    /* ── Eye toggles ── */
+    function bindEye(btnId, inputId) {
+        var btn = document.getElementById(btnId);
+        var inp = document.getElementById(inputId);
+        if (!btn || !inp) return;
+        btn.addEventListener("click", function () {
+            var shown = inp.type === "text";
+            inp.type  = shown ? "password" : "text";
+            btn.textContent = shown ? "👁" : "🙈";
+        });
+    }
+    bindEye("fpToggleNew",     "fpNewPw");
+    bindEye("fpToggleConfirm", "fpConfirmPw");
+
+    /* ── Eye toggle for login password field ── */
+    bindEye("toggleLoginPw", "loginPassword");
+})();
+</script>
+
+</body>
 </html>

@@ -246,12 +246,34 @@
                         Password
                     </label>
 
-                    <input
-                        type="password"
-                        id="registerPassword"
-                        placeholder="Create a password"
-                        required
-                    >
+                    <div class="pw-wrap">
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            placeholder="Create a strong password"
+                            required
+                            autocomplete="new-password"
+                        >
+                        <button type="button" class="pw-eye" id="toggleRegPw" aria-label="Show password">👁</button>
+                    </div>
+
+                    <!-- Strength meter -->
+                    <div class="pw-strength-bar" id="pwStrengthBar">
+                        <span class="pw-segment" id="pwSeg1"></span>
+                        <span class="pw-segment" id="pwSeg2"></span>
+                        <span class="pw-segment" id="pwSeg3"></span>
+                        <span class="pw-segment" id="pwSeg4"></span>
+                    </div>
+                    <p class="pw-strength-lbl" id="pwStrengthLbl"></p>
+
+                    <!-- Rules checklist -->
+                    <ul class="pw-rules" id="pwRules">
+                        <li id="rule-len">At least 8 characters</li>
+                        <li id="rule-upper">One uppercase letter (A–Z)</li>
+                        <li id="rule-lower">One lowercase letter (a–z)</li>
+                        <li id="rule-num">One number (0–9)</li>
+                        <li id="rule-special">One special character (!@#$…)</li>
+                    </ul>
 
                 </div>
 
@@ -263,12 +285,16 @@
                         Confirm Password
                     </label>
 
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        placeholder="Confirm your password"
-                        required
-                    >
+                    <div class="pw-wrap">
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm your password"
+                            required
+                            autocomplete="new-password"
+                        >
+                        <button type="button" class="pw-eye" id="toggleConfirmPw" aria-label="Show confirm password">👁</button>
+                    </div>
 
                 </div>
 
@@ -346,6 +372,103 @@
 
 
 <script src="../js/auth.js"></script>
+
+<script>
+/* ── Password strength meter ── */
+(function () {
+    var pwInput   = document.getElementById("registerPassword");
+    var seg       = [
+        document.getElementById("pwSeg1"),
+        document.getElementById("pwSeg2"),
+        document.getElementById("pwSeg3"),
+        document.getElementById("pwSeg4")
+    ];
+    var lbl       = document.getElementById("pwStrengthLbl");
+    var rules     = {
+        len:     document.getElementById("rule-len"),
+        upper:   document.getElementById("rule-upper"),
+        lower:   document.getElementById("rule-lower"),
+        num:     document.getElementById("rule-num"),
+        special: document.getElementById("rule-special")
+    };
+
+    var levels = [
+        { color: "#e74c3c", label: "Weak" },
+        { color: "#e67e22", label: "Fair" },
+        { color: "#f1c40f", label: "Good" },
+        { color: "#27ae60", label: "Strong" }
+    ];
+
+    function checkRule(el, pass) {
+        if (pass) {
+            el.classList.add("pw-rule-ok");
+            el.classList.remove("pw-rule-fail");
+        } else {
+            el.classList.add("pw-rule-fail");
+            el.classList.remove("pw-rule-ok");
+        }
+    }
+
+    function getScore(val) {
+        var s = 0;
+        if (val.length >= 8)                  s++;
+        if (/[A-Z]/.test(val))                s++;
+        if (/[a-z]/.test(val))                s++;
+        if (/[0-9]/.test(val))                s++;
+        if (/[^A-Za-z0-9]/.test(val))         s++;
+        /* map 5-point scale → 4 segments */
+        return Math.min(Math.floor(s / 5 * 4), 4);
+    }
+
+    pwInput.addEventListener("input", function () {
+        var val   = pwInput.value;
+        var score = getScore(val);
+
+        /* update rule ticks */
+        checkRule(rules.len,     val.length >= 8);
+        checkRule(rules.upper,   /[A-Z]/.test(val));
+        checkRule(rules.lower,   /[a-z]/.test(val));
+        checkRule(rules.num,     /[0-9]/.test(val));
+        checkRule(rules.special, /[^A-Za-z0-9]/.test(val));
+
+        /* update bar segments */
+        seg.forEach(function (s, i) {
+            if (val.length === 0) {
+                s.style.background = "";
+                s.classList.remove("pw-seg-active");
+            } else if (i < score) {
+                s.style.background = levels[Math.max(score - 1, 0)].color;
+                s.classList.add("pw-seg-active");
+            } else {
+                s.style.background = "";
+                s.classList.remove("pw-seg-active");
+            }
+        });
+
+        /* label */
+        if (val.length === 0) {
+            lbl.textContent = "";
+        } else {
+            lbl.textContent = levels[Math.max(score - 1, 0)].label;
+            lbl.style.color = levels[Math.max(score - 1, 0)].color;
+        }
+    });
+
+    /* ── Toggle eye buttons ── */
+    function bindEye(btnId, inputId) {
+        var btn = document.getElementById(btnId);
+        var inp = document.getElementById(inputId);
+        if (!btn || !inp) return;
+        btn.addEventListener("click", function () {
+            var shown = inp.type === "text";
+            inp.type  = shown ? "password" : "text";
+            btn.textContent = shown ? "👁" : "🙈";
+        });
+    }
+    bindEye("toggleRegPw",     "registerPassword");
+    bindEye("toggleConfirmPw", "confirmPassword");
+})();
+</script>
 
 <script src="../js/register.js"></script>
 

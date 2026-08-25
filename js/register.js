@@ -108,6 +108,24 @@ registerForm.addEventListener(
         }
 
 
+        /* ── Strong password check ── */
+        var pwErrors = [];
+        if (password.length < 8)               pwErrors.push("at least 8 characters");
+        if (!/[A-Z]/.test(password))           pwErrors.push("one uppercase letter");
+        if (!/[a-z]/.test(password))           pwErrors.push("one lowercase letter");
+        if (!/[0-9]/.test(password))           pwErrors.push("one number");
+        if (!/[^A-Za-z0-9]/.test(password))   pwErrors.push("one special character (!@#$%^&*)");
+
+        if (pwErrors.length > 0) {
+            showRegisterMessage(
+                "error",
+                "Password must include: " + pwErrors.join(", ") + "."
+            );
+            return;
+        }
+
+
+
         if (password !== confirmPassword) {
 
             showRegisterMessage(
