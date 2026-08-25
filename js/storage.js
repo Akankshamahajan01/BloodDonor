@@ -199,7 +199,7 @@
 ========================================================= */
 
 /**
- * Get ALL donors from localStorage
+ * Get ALL donors from localStorage, deduplicated by id → email → phone
  * @returns {Array}
  */
 function getAllDonors() {
@@ -207,7 +207,42 @@ function getAllDonors() {
         const stored = localStorage.getItem("bloodConnectDonors");
         if (!stored) return [];
         const donors = JSON.parse(stored);
-        return Array.isArray(donors) ? donors : [];
+        if (!Array.isArray(donors)) return [];
+
+        // Deduplicate: keep last occurrence wins for same id/email/phone
+        const seen = { ids: new Set(), emails: new Set(), phones: new Set() };
+        const unique = [];
+
+        // Traverse in reverse so the latest entry (most up-to-date) is kept
+        for (let i = donors.length - 1; i >= 0; i--) {
+            const d = donors[i];
+            const id    = d.id    ? String(d.id)                        : null;
+            const email = d.email ? d.email.toLowerCase().trim()        : null;
+            const phone = d.phone ? String(d.phone).trim()              : null;
+
+            if (
+                (id    && seen.ids.has(id))    ||
+                (email && seen.emails.has(email)) ||
+                (phone && seen.phones.has(phone))
+            ) {
+                continue; // duplicate — skip
+            }
+
+            if (id)    seen.ids.add(id);
+            if (email) seen.emails.add(email);
+            if (phone) seen.phones.add(phone);
+            unique.push(d);
+        }
+
+        // Restore original order (oldest first)
+        unique.reverse();
+
+        // Also persist the cleaned list back so duplicates don't keep accumulating
+        try {
+            localStorage.setItem("bloodConnectDonors", JSON.stringify(unique));
+        } catch (e) { /* storage full — ignore */ }
+
+        return unique;
     } catch (e) {
         return [];
     }

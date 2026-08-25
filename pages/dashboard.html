@@ -108,36 +108,40 @@
         <!-- ── STATS ROW ── -->
         <div class="db-stats">
 
-            <div class="db-stat">
+            <div class="db-stat db-stat-clickable" id="statDonorsBox" title="Click to view all donors">
                 <div class="db-stat-left">
                     <div class="db-stat-num" id="statDonors">0</div>
                     <div class="db-stat-lbl">Total Donors</div>
                 </div>
                 <div class="db-stat-ico db-ico-red">🩸</div>
+                <span class="db-stat-hint">View All →</span>
             </div>
 
-            <div class="db-stat">
+            <div class="db-stat db-stat-clickable" id="statRequestsBox" title="Click to view all blood requests">
                 <div class="db-stat-left">
                     <div class="db-stat-num" id="statRequests">0</div>
                     <div class="db-stat-lbl">Blood Requests</div>
                 </div>
                 <div class="db-stat-ico db-ico-orange">📋</div>
+                <span class="db-stat-hint">View All →</span>
             </div>
 
-            <div class="db-stat">
+            <div class="db-stat db-stat-clickable" id="statEligibleBox" title="Click to view eligible donors">
                 <div class="db-stat-left">
                     <div class="db-stat-num" id="statEligible">0</div>
                     <div class="db-stat-lbl">Eligible Donors</div>
                 </div>
                 <div class="db-stat-ico db-ico-green">✅</div>
+                <span class="db-stat-hint db-stat-hint-green">View All →</span>
             </div>
 
-            <div class="db-stat">
+            <div class="db-stat db-stat-clickable" id="statCitiesBox" title="Click to view all cities">
                 <div class="db-stat-left">
                     <div class="db-stat-num" id="statCities">0</div>
                     <div class="db-stat-lbl">Cities Covered</div>
                 </div>
                 <div class="db-stat-ico db-ico-blue">🏙️</div>
+                <span class="db-stat-hint db-stat-hint-blue">View All →</span>
             </div>
 
         </div>
@@ -178,6 +182,214 @@
     </main>
 
 </div><!-- /db-shell -->
+
+
+<!-- ═══════════════════════ DONORS MODAL ═══════════════════════ -->
+<div class="dm-overlay" id="donorsModal" role="dialog" aria-modal="true" aria-labelledby="dmTitle">
+    <div class="dm-box">
+
+        <!-- Header -->
+        <div class="dm-header">
+            <div class="dm-header-left">
+                <span class="dm-header-icon">🩸</span>
+                <div>
+                    <h2 id="dmTitle">All Registered Donors</h2>
+                    <p id="dmSubtitle">Loading...</p>
+                </div>
+            </div>
+            <button class="dm-close" id="dmClose" aria-label="Close">✕</button>
+        </div>
+
+        <!-- Search / Filter bar -->
+        <div class="dm-filters">
+            <input
+                type="text"
+                id="dmSearch"
+                class="dm-input"
+                placeholder="Search by name or city…"
+                aria-label="Search donors"
+            />
+            <select id="dmBloodFilter" class="dm-select" aria-label="Filter by blood group">
+                <option value="">All Blood Groups</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+            <select id="dmEligFilter" class="dm-select" aria-label="Filter by eligibility">
+                <option value="">All</option>
+                <option value="eligible">Eligible Only</option>
+                <option value="ineligible">Not Eligible</option>
+            </select>
+        </div>
+
+        <!-- Donor list -->
+        <div class="dm-list" id="dmList">
+            <!-- filled by JS -->
+        </div>
+
+        <!-- Footer count -->
+        <div class="dm-footer">
+            Showing <strong id="dmCount">0</strong> donors
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ═══════════════════════ REQUESTS MODAL ═══════════════════════ -->
+<div class="dm-overlay" id="requestsModal" role="dialog" aria-modal="true" aria-labelledby="rmTitle">
+    <div class="dm-box">
+
+        <!-- Header -->
+        <div class="dm-header">
+            <div class="dm-header-left">
+                <span class="dm-header-icon">📋</span>
+                <div>
+                    <h2 id="rmTitle">All Blood Requests</h2>
+                    <p id="rmSubtitle">Loading...</p>
+                </div>
+            </div>
+            <button class="dm-close" id="rmClose" aria-label="Close">✕</button>
+        </div>
+
+        <!-- Search / Filter bar -->
+        <div class="dm-filters">
+            <input
+                type="text"
+                id="rmSearch"
+                class="dm-input"
+                placeholder="Search by patient name or city…"
+                aria-label="Search requests"
+            />
+            <select id="rmBloodFilter" class="dm-select" aria-label="Filter by blood group">
+                <option value="">All Blood Groups</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+            <select id="rmUrgencyFilter" class="dm-select" aria-label="Filter by urgency">
+                <option value="">All Urgency</option>
+                <option value="critical">🔴 Critical</option>
+                <option value="urgent">🟠 Urgent</option>
+                <option value="normal">🟢 Normal</option>
+            </select>
+        </div>
+
+        <!-- Request list -->
+        <div class="dm-list" id="rmList">
+            <!-- filled by JS -->
+        </div>
+
+        <!-- Footer count -->
+        <div class="dm-footer">
+            Showing <strong id="rmCount">0</strong> requests
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ═══════════════════════ ELIGIBLE DONORS MODAL ═══════════════════════ -->
+<div class="dm-overlay" id="eligibleModal" role="dialog" aria-modal="true" aria-labelledby="emTitle">
+    <div class="dm-box">
+
+        <!-- Header -->
+        <div class="dm-header">
+            <div class="dm-header-left">
+                <span class="dm-header-icon">✅</span>
+                <div>
+                    <h2 id="emTitle">Eligible Donors</h2>
+                    <p id="emSubtitle">Loading...</p>
+                </div>
+            </div>
+            <button class="dm-close" id="emClose" aria-label="Close">✕</button>
+        </div>
+
+        <!-- Search / Filter bar -->
+        <div class="dm-filters">
+            <input
+                type="text"
+                id="emSearch"
+                class="dm-input"
+                placeholder="Search by name or city…"
+                aria-label="Search eligible donors"
+            />
+            <select id="emBloodFilter" class="dm-select" aria-label="Filter by blood group">
+                <option value="">All Blood Groups</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+        </div>
+
+        <!-- Eligible donor list -->
+        <div class="dm-list" id="emList">
+            <!-- filled by JS -->
+        </div>
+
+        <!-- Footer count -->
+        <div class="dm-footer">
+            Showing <strong id="emCount">0</strong> eligible donors
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ═══════════════════════ CITIES MODAL ═══════════════════════ -->
+<div class="dm-overlay" id="citiesModal" role="dialog" aria-modal="true" aria-labelledby="cmTitle">
+    <div class="dm-box">
+
+        <!-- Header -->
+        <div class="dm-header">
+            <div class="dm-header-left">
+                <span class="dm-header-icon">🏙️</span>
+                <div>
+                    <h2 id="cmTitle">Cities Covered</h2>
+                    <p id="cmSubtitle">Loading...</p>
+                </div>
+            </div>
+            <button class="dm-close" id="cmClose" aria-label="Close">✕</button>
+        </div>
+
+        <!-- Search bar -->
+        <div class="dm-filters">
+            <input
+                type="text"
+                id="cmSearch"
+                class="dm-input"
+                placeholder="Search city…"
+                aria-label="Search city"
+            />
+        </div>
+
+        <!-- Cities list -->
+        <div class="dm-list" id="cmList">
+            <!-- filled by JS -->
+        </div>
+
+        <!-- Footer count -->
+        <div class="dm-footer">
+            Showing <strong id="cmCount">0</strong> cities
+        </div>
+
+    </div>
+</div>
 
 
 <script src="../js/storage.js"></script>
