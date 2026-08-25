@@ -2,11 +2,520 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Redirecting… | BloodConnect</title>
-    <meta http-equiv="refresh" content="0; url=search.html">
-    <script>window.location.replace("search.html");</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Blood | BloodConnect</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+
+        .req-page {
+            min-height: calc(100vh - 82px);
+            background: #f0ece9;
+            padding: 60px 6% 100px;
+        }
+
+        /* ── Header ── */
+        .req-header {
+            max-width: 780px;
+            margin: 0 auto 40px;
+        }
+
+        .req-header .section-label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .req-title {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(30px, 4vw, 50px);
+            font-weight: 700;
+            line-height: 1.1;
+            color: #111;
+            margin-bottom: 10px;
+        }
+
+        .req-title span {
+            color: var(--red);
+            font-style: italic;
+        }
+
+        .req-subtitle {
+            font-size: 13px;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* ── Layout ── */
+        .req-layout {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* ── Form card ── */
+        .req-form-card {
+            background: white;
+            border: 1px solid #e8e2de;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .req-form-top {
+            background: linear-gradient(130deg, #1a0a0a 0%, #2e0d0d 60%, #c51f2f 100%);
+            padding: 30px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .req-form-top h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .req-form-top p {
+            font-size: 12px;
+            color: rgba(255,255,255,.5);
+        }
+
+        .req-form-top-icon {
+            font-size: 32px;
+            opacity: .8;
+        }
+
+        .req-form-body {
+            padding: 32px;
+        }
+
+        /* form groups */
+        .req-fg {
+            margin-bottom: 20px;
+        }
+
+        .req-fg label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #333;
+            letter-spacing: .3px;
+            margin-bottom: 7px;
+        }
+
+        .req-fg input,
+        .req-fg select,
+        .req-fg textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #e0d8d4;
+            border-radius: 11px;
+            font-size: 13px;
+            font-family: "DM Sans", sans-serif;
+            color: #111;
+            background: #faf7f5;
+            transition: border-color .2s, box-shadow .2s;
+            box-sizing: border-box;
+        }
+
+        .req-fg input:focus,
+        .req-fg select:focus,
+        .req-fg textarea:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(197,31,47,.08);
+            background: white;
+        }
+
+        .req-fg input::placeholder,
+        .req-fg textarea::placeholder {
+            color: #c0b8b4;
+        }
+
+        .req-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* blood group pills */
+        .req-blood-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .req-bp {
+            padding: 7px 14px;
+            border-radius: 30px;
+            border: 1.5px solid #e0d8d4;
+            background: white;
+            font-size: 12px;
+            font-weight: 700;
+            color: #666;
+            cursor: pointer;
+            font-family: "DM Sans", sans-serif;
+            transition: all .18s ease;
+        }
+
+        .req-bp:hover {
+            border-color: var(--red);
+            color: var(--red);
+            background: #fff4f4;
+        }
+
+        .req-bp.req-bp-on {
+            background: var(--red);
+            border-color: var(--red);
+            color: white;
+        }
+
+        /* hidden real select */
+        #requiredBloodGroup {
+            display: none;
+        }
+
+        /* submit btn */
+        .req-submit {
+            width: 100%;
+            padding: 15px;
+            border-radius: 14px;
+            background: var(--red);
+            color: white;
+            border: none;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: "DM Sans", sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 8px;
+            transition: background .2s ease, transform .2s ease;
+        }
+
+        .req-submit:hover {
+            background: var(--deep-red);
+            transform: translateY(-2px);
+        }
+
+        .req-submit:disabled {
+            background: #ccc;
+            cursor: default;
+            transform: none;
+        }
+
+        /* ── Side info card ── */
+        .req-info-card {
+            background: #111;
+            border-radius: 24px;
+            color: white;
+            padding: 28px;
+        }
+
+        .req-info-card h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .req-info-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .req-info-step {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .req-step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--red);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .req-info-step h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ddd;
+            margin-bottom: 3px;
+        }
+
+        .req-info-step p {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.55;
+        }
+
+        .req-info-divider {
+            height: 1px;
+            background: #222;
+            margin: 22px 0;
+        }
+
+        .req-urgency-guide {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .req-ug-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .req-ug-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .req-dot-c { background: #e05060; }
+        .req-dot-u { background: #e09040; }
+        .req-dot-n { background: #40b068; }
+
+        .req-ug-item p {
+            font-size: 11px;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        .req-ug-item strong {
+            color: #ccc;
+            font-size: 11px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 860px) {
+            .req-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .req-row {
+                grid-template-columns: 1fr;
+            }
+            .req-form-body {
+                padding: 22px 18px;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
-    <p>Redirecting to <a href="search.html">Search Donors</a>…</p>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <a href="../index.html" class="logo">
+        <span class="logo-drop">▼</span>
+        Blood<span class="logo-red">Connect</span>
+    </a>
+    <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="donor.html">Donate Blood</a>
+        <a href="search.html">Search Donors</a>
+        <a href="request.html" class="active">Request Blood</a>
+        <a href="about.html">About Us</a>
+    </nav>
+    <div id="navbarAuth"></div>
+</header>
+
+
+<!-- MAIN -->
+<main class="req-page">
+
+    <!-- Header -->
+    <div class="req-header">
+        <span class="section-label">BLOOD REQUEST</span>
+        <h1 class="req-title">Request <span>Blood</span></h1>
+        <p class="req-subtitle">Fill in patient details, select urgency, and we'll instantly match you with compatible, eligible donors.</p>
+    </div>
+
+    <!-- Layout -->
+    <div class="req-layout">
+
+        <!-- Form card -->
+        <div class="req-form-card">
+
+            <div class="req-form-top">
+                <div>
+                    <h2>Patient Details</h2>
+                    <p>All fields are required to find the best match.</p>
+                </div>
+                <div class="req-form-top-icon">🩸</div>
+            </div>
+
+            <div class="req-form-body">
+
+                <form id="requestForm" novalidate>
+
+                    <!-- Patient Name -->
+                    <div class="req-fg">
+                        <label for="patientName">Patient Name</label>
+                        <input type="text" id="patientName" name="patientName" placeholder="Enter patient's full name" autocomplete="off" required>
+                    </div>
+
+                    <!-- Blood Group pills -->
+                    <div class="req-fg">
+                        <label>Blood Group Required</label>
+                        <div class="req-blood-pills" id="reqBloodPills">
+                            <button type="button" class="req-bp" data-group="A+">A+</button>
+                            <button type="button" class="req-bp" data-group="A-">A−</button>
+                            <button type="button" class="req-bp" data-group="B+">B+</button>
+                            <button type="button" class="req-bp" data-group="B-">B−</button>
+                            <button type="button" class="req-bp" data-group="AB+">AB+</button>
+                            <button type="button" class="req-bp" data-group="AB-">AB−</button>
+                            <button type="button" class="req-bp" data-group="O+">O+</button>
+                            <button type="button" class="req-bp" data-group="O-">O−</button>
+                        </div>
+                        <!-- Hidden select used by request.js -->
+                        <select id="requiredBloodGroup" name="requiredBloodGroup" required>
+                            <option value="">Select blood group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+
+                    <!-- Units + Urgency -->
+                    <div class="req-row">
+                        <div class="req-fg">
+                            <label for="unitsRequired">Units Required</label>
+                            <input type="number" id="unitsRequired" name="unitsRequired" min="1" max="10" placeholder="e.g. 2" required>
+                        </div>
+                        <div class="req-fg">
+                            <label for="urgency">Urgency Level</label>
+                            <select id="urgency" name="urgency" required>
+                                <option value="">Select urgency</option>
+                                <option value="critical">🔴 Critical</option>
+                                <option value="urgent">🟠 Urgent</option>
+                                <option value="normal">🟢 Normal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Hospital -->
+                    <div class="req-fg">
+                        <label for="hospital">Hospital / Medical Centre</label>
+                        <input type="text" id="hospital" name="hospital" placeholder="Enter hospital name" required>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="req-fg">
+                        <label for="requestLocation">City / Location</label>
+                        <input type="text" id="requestLocation" name="requestLocation" placeholder="Enter city or area" required>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="req-submit" id="reqSubmitBtn">
+                        <span>🔍</span> Find Matching Donors →
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Info sidebar -->
+        <div class="req-info-card">
+
+            <h3>How It Works</h3>
+
+            <div class="req-info-steps">
+                <div class="req-info-step">
+                    <div class="req-step-num">01</div>
+                    <div>
+                        <h4>Fill Patient Details</h4>
+                        <p>Enter the patient name, required blood group, and how many units are needed.</p>
+                    </div>
+                </div>
+                <div class="req-info-step">
+                    <div class="req-step-num">02</div>
+                    <div>
+                        <h4>Select Urgency</h4>
+                        <p>Choose the urgency level so donors know how critical the need is.</p>
+                    </div>
+                </div>
+                <div class="req-info-step">
+                    <div class="req-step-num">03</div>
+                    <div>
+                        <h4>Get Matched Instantly</h4>
+                        <p>We search our donor registry and show you compatible, eligible donors immediately.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="req-info-divider"></div>
+
+            <p style="font-size:11px;color:#555;margin-bottom:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Urgency Guide</p>
+
+            <div class="req-urgency-guide">
+                <div class="req-ug-item">
+                    <div class="req-ug-dot req-dot-c"></div>
+                    <p><strong>Critical</strong> — Life-threatening. Immediate need within hours.</p>
+                </div>
+                <div class="req-ug-item">
+                    <div class="req-ug-dot req-dot-u"></div>
+                    <p><strong>Urgent</strong> — Needed within 24–48 hours.</p>
+                </div>
+                <div class="req-ug-item">
+                    <div class="req-ug-dot req-dot-n"></div>
+                    <p><strong>Normal</strong> — Planned surgery or scheduled transfusion.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script src="../js/storage.js"></script>
+<script src="../js/auth.js"></script>
+
+<script>
+    requireLogin();
+    updateNavbar();
+
+    /* Blood group pill selector — syncs with hidden select used by request.js */
+    document.querySelectorAll(".req-bp").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+            document.querySelectorAll(".req-bp").forEach(function(b){
+                b.classList.remove("req-bp-on");
+            });
+            btn.classList.add("req-bp-on");
+            document.getElementById("requiredBloodGroup").value = btn.getAttribute("data-group");
+        });
+    });
+</script>
+
+<script src="../js/request.js"></script>
+
 </body>
 </html>

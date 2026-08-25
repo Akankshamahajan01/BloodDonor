@@ -2,256 +2,187 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | BloodConnect</title>
-
-
-    <link
-        rel="stylesheet"
-        href="../css/style.css"
-    >
-
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
+<body class="db-body">
 
-<body>
-
-
+<!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
 <header class="navbar">
-
-    <a
-        href="../index.html"
-        class="logo"
-    >
-
-        <span class="logo-drop">
-            ▼
-        </span>
-
+    <a href="../index.html" class="logo">
+        <span class="logo-drop">▼</span>
         Blood<span class="logo-red">Connect</span>
-
     </a>
-
-
     <nav class="nav-links">
-
-        <a href="../index.html">
-            Home
-        </a>
-
-        <a href="donor.html">
-            Donate Blood
-        </a>
-
-        <a href="search.html">
-            Search Donors
-        </a>
-
-        <a href="about.html">
-            About Us
-        </a>
-
+        <a href="../index.html">Home</a>
+        <a href="donor.html">Donate Blood</a>
+        <a href="search.html">Search Donors</a>
+        <a href="about.html">About Us</a>
     </nav>
-
-
-    <button
-        class="nav-button"
-        id="logoutButton"
-    >
-
-        Logout
-
-    </button>
-
+    <button class="nav-button" id="logoutButton">Logout</button>
 </header>
 
 
-
-<main class="dashboard-page">
-
-
-    <section class="dashboard-header">
-
-        <span class="section-label">
-            MY BLOODCONNECT
-        </span>
+<!-- ═══════════════════════ DASHBOARD SHELL ═══════════════════════ -->
+<div class="db-shell">
 
 
-        <h1>
+    <!-- ════ LEFT SIDEBAR ════ -->
+    <aside class="db-sidebar">
 
-            Welcome,
+        <!-- Avatar + identity -->
+        <div class="db-sid-profile">
+            <div class="db-sid-avatar" id="profileAvatar">?</div>
+            <div class="db-sid-info">
+                <strong id="profileName">—</strong>
+                <span id="profileEmail">—</span>
+            </div>
+        </div>
 
-            <span id="dashboardName">
-                User
-            </span>
+        <!-- Divider -->
+        <div class="db-sid-divider"></div>
 
-        </h1>
-
-
-        <p>
-            What would you like to do today?
-        </p>
-
-    </section>
-
-
-
-    <section class="dashboard-actions">
-
-
-        <a
-            href="donor.html"
-            class="dashboard-action-card"
-        >
-
-            <span class="dashboard-number">
-                01
-            </span>
-
-            <h2>
+        <!-- Nav links -->
+        <nav class="db-sid-nav">
+            <a href="donor.html" class="db-sid-link">
+                <span class="db-sid-link-icon">🩸</span>
                 Donate Blood
-            </h2>
-
-            <p>
-                Register as a donor,
-                check eligibility and
-                help save a life.
-            </p>
-
-            <strong>
-                Donate Blood →
-            </strong>
-
-        </a>
-
-
-
-        <a
-            href="search.html"
-            class="dashboard-action-card"
-        >
-
-            <span class="dashboard-number">
-                02
-            </span>
-
-            <h2>
+            </a>
+            <a href="search.html" class="db-sid-link">
+                <span class="db-sid-link-icon">🔍</span>
                 Search Donors
-            </h2>
+            </a>
+            <a href="about.html" class="db-sid-link">
+                <span class="db-sid-link-icon">ℹ️</span>
+                About Us
+            </a>
+        </nav>
 
-            <p>
-                Find compatible blood donors
-                near you quickly.
-            </p>
+        <!-- Divider -->
+        <div class="db-sid-divider"></div>
 
-            <strong>
-                Search Donors →
-            </strong>
+        <!-- Profile fields -->
+        <div class="db-sid-fields">
+            <div class="db-sid-field">
+                <span>PHONE</span>
+                <strong id="profilePhone">—</strong>
+            </div>
+            <div class="db-sid-field">
+                <span>MEMBER SINCE</span>
+                <strong id="profileSince">—</strong>
+            </div>
+        </div>
 
-        </a>
+        <!-- Logout -->
+        <button class="db-sid-logout" id="logoutButton2">
+            <span>↪</span> Sign Out
+        </button>
+
+    </aside>
 
 
-    </section>
+    <!-- ════ MAIN CONTENT ════ -->
+    <main class="db-main">
 
 
+        <!-- ── HERO BANNER ── -->
+        <section class="db-hero">
+            <div class="db-hero-text">
+                <p class="db-hero-label">MY BLOODCONNECT</p>
+                <h1 class="db-hero-title">
+                    Good <span id="timeGreeting">day</span>,<br>
+                    <span id="dashboardName">User</span> 👋
+                </h1>
+                <p class="db-hero-sub">Your dashboard is ready. Here's today's overview.</p>
+            </div>
+            <div class="db-hero-date">
+                <span id="heroDay">—</span>
+                <span id="heroDate">—</span>
+            </div>
+        </section>
 
-    <section class="dashboard-profile">
 
+        <!-- ── STATS ROW ── -->
+        <div class="db-stats">
 
-        <div>
+            <div class="db-stat">
+                <div class="db-stat-left">
+                    <div class="db-stat-num" id="statDonors">0</div>
+                    <div class="db-stat-lbl">Total Donors</div>
+                </div>
+                <div class="db-stat-ico db-ico-red">🩸</div>
+            </div>
 
-            <span class="section-label">
-                ACCOUNT
-            </span>
+            <div class="db-stat">
+                <div class="db-stat-left">
+                    <div class="db-stat-num" id="statRequests">0</div>
+                    <div class="db-stat-lbl">Blood Requests</div>
+                </div>
+                <div class="db-stat-ico db-ico-orange">📋</div>
+            </div>
 
-            <h2>
-                Your profile
-            </h2>
+            <div class="db-stat">
+                <div class="db-stat-left">
+                    <div class="db-stat-num" id="statEligible">0</div>
+                    <div class="db-stat-lbl">Eligible Donors</div>
+                </div>
+                <div class="db-stat-ico db-ico-green">✅</div>
+            </div>
+
+            <div class="db-stat">
+                <div class="db-stat-left">
+                    <div class="db-stat-num" id="statCities">0</div>
+                    <div class="db-stat-lbl">Cities Covered</div>
+                </div>
+                <div class="db-stat-ico db-ico-blue">🏙️</div>
+            </div>
 
         </div>
 
 
-        <div class="profile-details">
-
-            <div>
-
-                <span>
-                    NAME
-                </span>
-
-                <strong id="profileName">
-                    —
-                </strong>
-
+        <!-- ── QUICK ACTIONS ── -->
+        <div class="db-panel">
+            <div class="db-panel-hd">
+                <h2>Quick Actions</h2>
+                <span class="db-eyebrow">WHAT DO YOU NEED?</span>
             </div>
 
+            <div class="db-tiles db-tiles-2">
 
-            <div>
+                <a href="donor.html" class="db-tile db-tile-primary">
+                    <div class="db-tile-top">
+                        <span class="db-tile-badge">01</span>
+                        <span class="db-tile-arrow">→</span>
+                    </div>
+                    <div class="db-tile-icon">🩸</div>
+                    <h3>Donate Blood</h3>
+                    <p>Check your eligibility and register as a donor to save lives today.</p>
+                </a>
 
-                <span>
-                    EMAIL
-                </span>
-
-                <strong id="profileEmail">
-                    —
-                </strong>
-
-            </div>
-
-
-            <div>
-
-                <span>
-                    PHONE
-                </span>
-
-                <strong id="profilePhone">
-                    —
-                </strong>
+                <a href="search.html" class="db-tile">
+                    <div class="db-tile-top">
+                        <span class="db-tile-badge">02</span>
+                        <span class="db-tile-arrow">→</span>
+                    </div>
+                    <div class="db-tile-icon">🔍</div>
+                    <h3>Search Blood</h3>
+                    <p>Find compatible donors instantly by blood group and city near you.</p>
+                </a>
 
             </div>
-
         </div>
 
+    </main>
 
-    </section>
-
-
-</main>
+</div><!-- /db-shell -->
 
 
-
-<footer>
-
-    <div class="footer-logo">
-
-        <span class="footer-drop">
-            ▼
-        </span>
-
-        Blood<span>Connect</span>
-
-    </div>
-
-
-    <p>
-        Find Blood. Save Lives.
-    </p>
-
-</footer>
-
-
-
+<script src="../js/storage.js"></script>
 <script src="../js/auth.js"></script>
 <script src="../js/dashboard.js"></script>
 
 </body>
-
 </html>

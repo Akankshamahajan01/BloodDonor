@@ -1,792 +1,235 @@
 /* =========================================================
-   BLOODCONNECT
-   MATCHING RESULTS + DONOR RANKING
-   PHASE 1
+   BLOODCONNECT — MATCHING RESULTS v2
 ========================================================= */
 
+/* ── DOM refs ── */
+var matchesContainer  = document.getElementById("matchesContainer");
+var noMatches         = document.getElementById("noMatches");
+var requestDetail     = document.getElementById("requestDetail");
+var summaryBloodGroup = document.getElementById("summaryBloodGroup");
+var summaryUnits      = document.getElementById("summaryUnits");
+var summaryUrgency    = document.getElementById("summaryUrgency");
+var summaryMatches    = document.getElementById("summaryMatches");
 
-/* =========================================================
-   PAGE ELEMENTS
-========================================================= */
+/* modal refs */
+var donorModal         = document.getElementById("donorModal");
+var modalOverlay       = document.getElementById("modalOverlay");
+var closeModalBtn      = document.getElementById("closeModal");
+var modalDonorName     = document.getElementById("modalDonorName");
+var modalAvatar        = document.getElementById("modalAvatar");
+var modalBloodGroup    = document.getElementById("modalBloodGroup");
+var modalMatchScore    = document.getElementById("modalMatchScore");
+var modalAge           = document.getElementById("modalAge");
+var modalLocation      = document.getElementById("modalLocation");
+var modalLastDonation  = document.getElementById("modalLastDonation");
+var modalPhone         = document.getElementById("modalPhone");
+var modalEmail         = document.getElementById("modalEmail");
+var modalContactButton = document.getElementById("modalContactButton");
 
-const matchesContainer =
-    document.getElementById("matchesContainer");
+/* ── Stored data ── */
+var storedRequest = localStorage.getItem("bloodConnectCurrentRequest");
+var storedMatches = localStorage.getItem("bloodConnectCurrentMatches");
 
-const noMatches =
-    document.getElementById("noMatches");
-
-const requestSummary =
-    document.getElementById("requestSummary");
-
-const summaryBloodGroup =
-    document.getElementById("summaryBloodGroup");
-
-const summaryUnits =
-    document.getElementById("summaryUnits");
-
-const summaryUrgency =
-    document.getElementById("summaryUrgency");
-
-const summaryMatches =
-    document.getElementById("summaryMatches");
-
-
-/* =========================================================
-   MODAL ELEMENTS
-========================================================= */
-
-const donorModal =
-    document.getElementById("donorModal");
-
-const modalOverlay =
-    document.getElementById("modalOverlay");
-
-const closeModal =
-    document.getElementById("closeModal");
-
-const modalDonorName =
-    document.getElementById("modalDonorName");
-
-const modalAvatar =
-    document.getElementById("modalAvatar");
-
-const modalBloodGroup =
-    document.getElementById("modalBloodGroup");
-
-const modalMatchScore =
-    document.getElementById("modalMatchScore");
-
-const modalAge =
-    document.getElementById("modalAge");
-
-const modalLocation =
-    document.getElementById("modalLocation");
-
-const modalLastDonation =
-    document.getElementById("modalLastDonation");
-
-const modalPhone =
-    document.getElementById("modalPhone");
-
-const modalEmail =
-    document.getElementById("modalEmail");
-
-const modalContactButton =
-    document.getElementById("modalContactButton");
-
-
-/* =========================================================
-   GET SAVED REQUEST + MATCHES
-========================================================= */
-
-const storedRequest =
-    localStorage.getItem(
-        "bloodConnectCurrentRequest"
-    );
-
-const storedMatches =
-    localStorage.getItem(
-        "bloodConnectCurrentMatches"
-    );
-
-
-/* =========================================================
-   LOAD PAGE
-========================================================= */
-
+/* ── Bootstrap ── */
 if (!storedRequest) {
-
-    requestSummary.textContent =
-        "No active blood request was found.";
-
-    matchesContainer.innerHTML = "";
-
-    noMatches.hidden = false;
-
+    if (requestDetail)     requestDetail.textContent = "No active blood request found.";
+    if (matchesContainer)  matchesContainer.innerHTML = "";
+    if (noMatches)         noMatches.hidden = false;
 } else {
-
     loadResults();
-
 }
 
-
 /* =========================================================
-   LOAD MATCHING RESULTS
+   LOAD RESULTS
 ========================================================= */
-
 function loadResults() {
 
-    let request;
-    let matches;
-
+    var request, matches;
 
     try {
-
-        request =
-            JSON.parse(storedRequest);
-
-        matches =
-            storedMatches
-                ? JSON.parse(storedMatches)
-                : [];
-
-    }
-
-    catch (error) {
-
-        requestSummary.textContent =
-            "Unable to load matching results.";
-
+        request = JSON.parse(storedRequest);
+        matches = storedMatches ? JSON.parse(storedMatches) : [];
+    } catch (e) {
+        if (requestDetail) requestDetail.textContent = "Unable to load matching results.";
         return;
-
     }
 
+    /* ── hero subtitle ── */
+    if (requestDetail) {
+        requestDetail.textContent =
+            "Showing compatible donors for " + request.bloodGroup +
+            " blood at " + (request.location || "your location") + ".";
+    }
 
-    /* =====================================================
-       REQUEST SUMMARY
-    ===================================================== */
+    /* ── summary strip ── */
+    if (summaryBloodGroup) summaryBloodGroup.textContent = request.bloodGroup;
+    if (summaryUnits)      summaryUnits.textContent      = request.units;
+    if (summaryUrgency)    summaryUrgency.textContent    = capitalize(request.urgency);
+    if (summaryMatches)    summaryMatches.textContent    = matches.length;
 
-    requestSummary.textContent =
-        `Showing compatible donors for ${request.bloodGroup}
-        blood at ${request.location}.`;
-
-
-    summaryBloodGroup.textContent =
-        request.bloodGroup;
-
-
-    summaryUnits.textContent =
-        request.units;
-
-
-    summaryUrgency.textContent =
-        capitalize(request.urgency);
-
-
-    summaryMatches.textContent =
-        matches.length;
-
-
-    /* =====================================================
-       NO MATCHES
-    ===================================================== */
-
-    if (matches.length === 0) {
-
-        matchesContainer.innerHTML = "";
-
-        noMatches.hidden = false;
-
+    /* ── no matches ── */
+    if (!matches.length) {
+        if (matchesContainer) matchesContainer.innerHTML = "";
+        if (noMatches)        noMatches.hidden = false;
         return;
-
     }
 
+    if (noMatches) noMatches.hidden = true;
 
-    noMatches.hidden = true;
-
-
-    /* =====================================================
-       RANK DONORS
-    ===================================================== */
-
+    /* ── rank donors ── */
     matches.sort(function (a, b) {
-
-        const scoreA =
-            calculateMatchScore(
-                a,
-                request
-            );
-
-        const scoreB =
-            calculateMatchScore(
-                b,
-                request
-            );
-
-
-        /*
-           Highest score comes first.
-        */
-
-        return scoreB - scoreA;
-
+        return calculateMatchScore(b, request) - calculateMatchScore(a, request);
     });
 
-
-    /* =====================================================
-       CLEAR OLD CARDS
-    ===================================================== */
-
+    /* ── build cards ── */
     matchesContainer.innerHTML = "";
 
+    matches.forEach(function (donor, i) {
+        var score = calculateMatchScore(donor, request);
+        var card  = document.createElement("div");
+        card.className = "match-card";
+        card.style.animationDelay = (i * 0.05) + "s";
 
-    /* =====================================================
-       CREATE DONOR CARDS
-    ===================================================== */
+        card.innerHTML =
+            '<div class="match-rank">#' + (i + 1) + '</div>' +
 
-    matches.forEach(function (donor, index) {
+            '<div class="match-main">' +
+            '  <div class="donor-avatar">' + getInitials(donor.name) + '</div>' +
+            '  <div class="donor-details">' +
+            '    <h3>' + escapeHTML(donor.name) + '</h3>' +
+            '    <span class="donor-location">' + escapeHTML(donor.location || "Location unavailable") + '</span>' +
+            '  </div>' +
+            '</div>' +
 
+            '<div class="blood-type-box">' +
+            '  <span>BLOOD TYPE</span>' +
+            '  <strong>' + donor.bloodGroup + '</strong>' +
+            '</div>' +
 
-        const score =
-            calculateMatchScore(
-                donor,
-                request
-            );
+            '<div class="eligibility-box">' +
+            '  <span class="status-dot"></span>' +
+            '  <div>' +
+            '    <strong>Eligible</strong>' +
+            '    <small>Available to donate</small>' +
+            '  </div>' +
+            '</div>' +
 
+            '<div class="match-score">' +
+            '  <span>MATCH SCORE</span>' +
+            '  <strong>' + score + '%</strong>' +
+            '</div>' +
 
-        const card =
-            document.createElement("div");
-
-
-        card.className =
-            "match-card";
-
-
-        card.innerHTML = `
-
-            <div class="match-rank">
-
-                #${index + 1}
-
-            </div>
-
-
-            <div class="match-main">
-
-                <div class="donor-avatar">
-
-                    ${getInitials(donor.name)}
-
-                </div>
-
-
-                <div class="donor-details">
-
-                    <h3>
-                        ${escapeHTML(donor.name)}
-                    </h3>
-
-                    <span class="donor-location">
-
-                        ${escapeHTML(
-                            donor.location || "Location unavailable"
-                        )}
-
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="blood-type-box">
-
-                <span>
-                    BLOOD TYPE
-                </span>
-
-                <strong>
-                    ${donor.bloodGroup}
-                </strong>
-
-            </div>
-
-
-            <div class="eligibility-box">
-
-                <span class="status-dot"></span>
-
-                <div>
-
-                    <strong>
-                        Eligible
-                    </strong>
-
-                    <small>
-                        Available to donate
-                    </small>
-
-                </div>
-
-            </div>
-
-
-            <div class="match-score">
-
-                <span>
-                    MATCH SCORE
-                </span>
-
-                <strong>
-                    ${score}%
-                </strong>
-
-            </div>
-
-
-            <div class="match-action">
-
-                <button
-                    type="button"
-                    class="view-donor-button"
-                    data-donor-id="${donor.id}"
-                >
-
-                    View Donor Details
-
-                    <span>→</span>
-
-                </button>
-
-            </div>
-
-        `;
-
+            '<div class="match-action">' +
+            '  <button type="button" class="view-donor-button" data-donor-id="' + donor.id + '">' +
+            '    View Details <span>→</span>' +
+            '  </button>' +
+            '</div>';
 
         matchesContainer.appendChild(card);
-
     });
 
-
-    /* =====================================================
-       ADD BUTTON EVENTS
-    ===================================================== */
-
-    const donorButtons =
-        document.querySelectorAll(
-            ".view-donor-button"
-        );
-
-
-    donorButtons.forEach(function (button) {
-
-        button.addEventListener(
-            "click",
-            function () {
-
-                const donorId =
-                    button.dataset.donorId;
-
-
-                openDonorModal(
-                    donorId,
-                    request
-                );
-
-            }
-        );
-
+    /* ── button events ── */
+    matchesContainer.querySelectorAll(".view-donor-button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            openDonorModal(btn.dataset.donorId, request);
+        });
     });
-
 }
-
 
 /* =========================================================
    MATCH SCORE
 ========================================================= */
+function calculateMatchScore(donor, request) {
+    var score = 0;
 
-/*
-   SCORE BREAKDOWN
+    if (donor.bloodGroup === request.bloodGroup) score += 70;
+    else score += 50;
 
-   Exact blood group      = 70 points
-   Compatible blood       = 50 points
-   Eligible               = 20 points
-   Same location          = 10 points
+    if (donor.eligible === true) score += 20;
 
-   Maximum exact match:
-   70 + 20 + 10 = 100%
-
-   Compatible match:
-   50 + 20 + 10 = 80%
-*/
-
-
-function calculateMatchScore(
-    donor,
-    request
-) {
-
-    let score = 0;
-
-
-    /* =====================================================
-       1. BLOOD GROUP
-    ===================================================== */
-
-    if (
-        donor.bloodGroup ===
-        request.bloodGroup
-    ) {
-
-        score += 70;
-
-    }
-
-    else {
-
-        score += 50;
-
-    }
-
-
-    /* =====================================================
-       2. ELIGIBILITY
-    ===================================================== */
-
-    if (
-        donor.eligible === true
-    ) {
-
-        score += 20;
-
-    }
-
-
-    /* =====================================================
-       3. SAME LOCATION
-    ===================================================== */
-
-    if (
-
-        donor.location &&
-
-        request.location &&
-
-        donor.location
-            .trim()
-            .toLowerCase() ===
-
-        request.location
-            .trim()
-            .toLowerCase()
-
-    ) {
-
+    if (donor.location && request.location &&
+        donor.location.trim().toLowerCase() === request.location.trim().toLowerCase()) {
         score += 10;
-
     }
-
 
     return score;
-
 }
 
-
 /* =========================================================
-   OPEN DONOR MODAL
+   OPEN MODAL
 ========================================================= */
+function openDonorModal(donorId, request) {
+    var stored = localStorage.getItem("bloodConnectDonors");
+    if (!stored) return;
 
-function openDonorModal(
-    donorId,
-    request
-) {
+    var donors;
+    try { donors = JSON.parse(stored); } catch (e) { return; }
 
-    const storedDonors =
-        localStorage.getItem(
-            "bloodConnectDonors"
-        );
+    var donor = donors.find(function (d) { return String(d.id) === String(donorId); });
+    if (!donor) return;
 
+    var score = calculateMatchScore(donor, request);
 
-    if (!storedDonors) {
+    modalAvatar.textContent       = getInitials(donor.name);
+    modalDonorName.textContent    = donor.name;
+    modalBloodGroup.textContent   = donor.bloodGroup;
+    modalMatchScore.textContent   = score + "%";
+    modalAge.textContent          = donor.age ? donor.age + " years" : "—";
+    modalLocation.textContent     = donor.location || "—";
+    modalPhone.textContent        = donor.phone || "Not available";
+    modalEmail.textContent        = donor.email || "Not available";
+    modalLastDonation.textContent = donor.lastDonationDate
+        ? formatDate(donor.lastDonationDate)
+        : "First-time donor";
 
-        return;
-
-    }
-
-
-    let donors;
-
-
-    try {
-
-        donors =
-            JSON.parse(storedDonors);
-
-    }
-
-    catch (error) {
-
-        return;
-
-    }
-
-
-    const donor =
-        donors.find(function (item) {
-
-            return String(item.id) ===
-                String(donorId);
-
-        });
-
-
-    if (!donor) {
-
-        return;
-
-    }
-
-
-    /* =====================================================
-       CALCULATE SCORE
-    ===================================================== */
-
-    const score =
-        calculateMatchScore(
-            donor,
-            request
-        );
-
-
-    /* =====================================================
-       FILL DONOR DETAILS
-    ===================================================== */
-
-    modalAvatar.textContent =
-        getInitials(donor.name);
-
-
-    modalDonorName.textContent =
-        donor.name;
-
-
-    modalBloodGroup.textContent =
-        donor.bloodGroup;
-
-
-    modalMatchScore.textContent =
-        score + "%";
-
-
-    modalAge.textContent =
-        donor.age
-            ? donor.age + " years"
-            : "—";
-
-
-    modalLocation.textContent =
-        donor.location || "—";
-
-
-    modalPhone.textContent =
-        donor.phone || "Not available";
-
-
-    modalEmail.textContent =
-        donor.email || "Not available";
-
-
-    /* =====================================================
-       LAST DONATION
-    ===================================================== */
-
-    if (!donor.lastDonationDate) {
-
-        modalLastDonation.textContent =
-            "First-time donor";
-
-    }
-
-    else {
-
-        modalLastDonation.textContent =
-            formatDisplayDate(
-                donor.lastDonationDate
-            );
-
-    }
-
-
-    /* =====================================================
-       CONTACT BUTTON
-    ===================================================== */
-
-    modalContactButton.onclick =
-        function () {
-
-            if (donor.phone) {
-
-                window.location.href =
-                    "tel:" + donor.phone;
-
-            }
-
-        };
-
-
-    /* =====================================================
-       SHOW MODAL
-    ===================================================== */
+    modalContactButton.onclick = function () {
+        if (donor.phone) window.location.href = "tel:" + donor.phone;
+    };
 
     donorModal.hidden = false;
-
-    document.body.classList.add(
-        "modal-open"
-    );
-
+    document.body.classList.add("modal-open");
 }
 
-
 /* =========================================================
-   CLOSE DONOR MODAL
+   CLOSE MODAL
 ========================================================= */
-
 function closeDonorModal() {
-
     donorModal.hidden = true;
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
+    document.body.classList.remove("modal-open");
 }
 
+closeModalBtn.addEventListener("click", closeDonorModal);
+modalOverlay.addEventListener("click",  closeDonorModal);
 
-closeModal.addEventListener(
-    "click",
-    closeDonorModal
-);
-
-
-modalOverlay.addEventListener(
-    "click",
-    closeDonorModal
-);
-
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !donorModal.hidden) closeDonorModal();
+});
 
 /* =========================================================
-   ESC KEY
+   HELPERS
 ========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            event.key === "Escape" &&
-            !donorModal.hidden
-        ) {
-
-            closeDonorModal();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   GET INITIALS
-========================================================= */
-
 function getInitials(name) {
-
-    const words =
-        name
-            .trim()
-            .split(/\s+/);
-
-
-    if (words.length === 1) {
-
-        return words[0]
-            .substring(0, 2)
-            .toUpperCase();
-
-    }
-
-
-    return (
-
-        words[0][0] +
-
-        words[words.length - 1][0]
-
-    ).toUpperCase();
-
+    var words = name.trim().split(/\s+/);
+    if (words.length === 1) return words[0].substring(0, 2).toUpperCase();
+    return (words[0][0] + words[words.length - 1][0]).toUpperCase();
 }
-
-
-/* =========================================================
-   CAPITALIZE
-========================================================= */
 
 function capitalize(text) {
-
-    if (!text) {
-
-        return "";
-
-    }
-
-
-    return (
-
-        text.charAt(0).toUpperCase() +
-
-        text.slice(1)
-
-    );
-
+    if (!text) return "—";
+    return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-
-/* =========================================================
-   FORMAT DATE
-========================================================= */
-
-function formatDisplayDate(dateString) {
-
-    if (!dateString) {
-
-        return "—";
-
-    }
-
-
-    const date =
-        new Date(
-            dateString + "T00:00:00"
-        );
-
-
-    const day =
-        String(
-            date.getDate()
-        ).padStart(2, "0");
-
-
-    const month =
-        String(
-            date.getMonth() + 1
-        ).padStart(2, "0");
-
-
-    const year =
-        date.getFullYear();
-
-
-    return `${day}/${month}/${year}`;
-
+function formatDate(dateStr) {
+    if (!dateStr) return "—";
+    try {
+        return new Date(dateStr + "T00:00:00").toLocaleDateString("en-IN", {
+            day: "numeric", month: "short", year: "numeric"
+        });
+    } catch (e) { return "—"; }
 }
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
 
 function escapeHTML(value) {
-
-    const div =
-        document.createElement("div");
-
-
-    div.textContent =
-        value;
-
-
-    return div.innerHTML;
-
+    var d = document.createElement("div");
+    d.textContent = value;
+    return d.innerHTML;
 }
-
-

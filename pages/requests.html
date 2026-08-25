@@ -2,11 +2,603 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Redirecting… | BloodConnect</title>
-    <meta http-equiv="refresh" content="0; url=search.html">
-    <script>window.location.replace("search.html");</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Blood Requests | BloodConnect</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+
+        /* ── Page ── */
+        .rq-page {
+            min-height: calc(100vh - 82px);
+            background: #f0ece9;
+            padding: 60px 6% 100px;
+        }
+
+        /* ── Header ── */
+        .rq-header {
+            max-width: 1100px;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .rq-header-left .section-label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .rq-title {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(30px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.1;
+            color: #111;
+        }
+
+        .rq-title span {
+            color: var(--red);
+            font-style: italic;
+        }
+
+        .rq-subtitle {
+            font-size: 13px;
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        .rq-new-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 22px;
+            border-radius: 14px;
+            background: var(--red);
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background .2s ease, transform .2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .rq-new-btn:hover {
+            background: var(--deep-red);
+            transform: translateY(-2px);
+        }
+
+        /* ── Filters bar ── */
+        .rq-filters {
+            max-width: 1100px;
+            margin: 0 auto 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .rq-filter-btn {
+            padding: 7px 16px;
+            border-radius: 30px;
+            border: 1.5px solid #ddd5d0;
+            background: white;
+            font-size: 12px;
+            font-weight: 600;
+            color: #777;
+            cursor: pointer;
+            font-family: "DM Sans", sans-serif;
+            transition: all .18s ease;
+        }
+
+        .rq-filter-btn:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .rq-filter-btn.rq-f-active {
+            background: var(--red);
+            border-color: var(--red);
+            color: white;
+        }
+
+        .rq-count-label {
+            margin-left: auto;
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        /* ── Stats strip ── */
+        .rq-stats {
+            max-width: 1100px;
+            margin: 0 auto 32px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .rq-stat {
+            background: white;
+            border: 1px solid #e8e2de;
+            border-radius: 16px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .rq-stat-icon {
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rq-si-all      { background: #fff4f4; }
+        .rq-si-critical { background: #fff0f0; }
+        .rq-si-urgent   { background: #fff7ee; }
+        .rq-si-normal   { background: #eefaf2; }
+
+        .rq-stat-body strong {
+            display: block;
+            font-size: 22px;
+            font-weight: 700;
+            color: #111;
+            line-height: 1;
+        }
+
+        .rq-stat-body span {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .6px;
+            color: #bbb;
+            text-transform: uppercase;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* ── Requests grid ── */
+        .rq-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 18px;
+        }
+
+        /* ── Request card ── */
+        .rq-card {
+            background: white;
+            border: 1px solid #e8e2de;
+            border-radius: 20px;
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            transition: transform .22s ease, box-shadow .22s ease;
+            animation: rqFadeUp .35s ease both;
+        }
+
+        @keyframes rqFadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .rq-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(50,20,20,.09);
+        }
+
+        /* top row */
+        .rq-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .rq-blood-pill {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #fff4f4;
+            border: 1px solid #f5d0d0;
+            color: var(--red);
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .rq-urgency-badge {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .rq-urg-critical { background: #fff0f0; color: #c51f2f; border: 1px solid #f5cccc; }
+        .rq-urg-urgent   { background: #fff7e8; color: #9a5c00; border: 1px solid #f2dfb2; }
+        .rq-urg-normal   { background: #eef9f1; color: #167538; border: 1px solid #c4e8d0; }
+
+        /* patient info */
+        .rq-patient {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 4px;
+        }
+
+        .rq-hospital {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 16px;
+        }
+
+        /* details row */
+        .rq-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 14px 0;
+            border-top: 1px solid #f2eeeb;
+            border-bottom: 1px solid #f2eeeb;
+            margin-bottom: 16px;
+        }
+
+        .rq-detail-item span {
+            display: block;
+            font-size: 8.5px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: #c0b8b4;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .rq-detail-item strong {
+            font-size: 12px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* footer row */
+        .rq-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .rq-date {
+            font-size: 11px;
+            color: #ccc;
+        }
+
+        .rq-matches-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: #111;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background .2s ease;
+            cursor: pointer;
+            border: none;
+            font-family: "DM Sans", sans-serif;
+        }
+
+        .rq-matches-btn:hover {
+            background: var(--red);
+        }
+
+        /* ── Empty state ── */
+        .rq-empty {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .rq-empty-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 18px;
+        }
+
+        .rq-empty h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 24px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .rq-empty p {
+            font-size: 13px;
+            color: #bbb;
+            margin-bottom: 28px;
+        }
+
+        .rq-empty a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 24px;
+            border-radius: 14px;
+            background: var(--red);
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .rq-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .rq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
-    <p>Redirecting to <a href="search.html">Search Donors</a>…</p>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <a href="../index.html" class="logo">
+        <span class="logo-drop">▼</span>
+        Blood<span class="logo-red">Connect</span>
+    </a>
+    <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="donor.html">Donate Blood</a>
+        <a href="search.html">Search Donors</a>
+        <a href="request.html">Request Blood</a>
+        <a href="about.html">About Us</a>
+    </nav>
+    <div id="navbarAuth"></div>
+</header>
+
+
+<!-- MAIN -->
+<main class="rq-page">
+
+    <!-- Header -->
+    <div class="rq-header">
+        <div class="rq-header-left">
+            <span class="section-label">BLOOD REQUESTS</span>
+            <h1 class="rq-title">All <span>Requests</span></h1>
+            <p class="rq-subtitle">Every request submitted through BloodConnect.</p>
+        </div>
+        <a href="request.html" class="rq-new-btn">
+            + New Request
+        </a>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="rq-stats" id="rqStats">
+        <div class="rq-stat">
+            <div class="rq-stat-icon rq-si-all">📋</div>
+            <div class="rq-stat-body">
+                <strong id="rqTotal">0</strong>
+                <span>Total</span>
+            </div>
+        </div>
+        <div class="rq-stat">
+            <div class="rq-stat-icon rq-si-critical">🔴</div>
+            <div class="rq-stat-body">
+                <strong id="rqCritical">0</strong>
+                <span>Critical</span>
+            </div>
+        </div>
+        <div class="rq-stat">
+            <div class="rq-stat-icon rq-si-urgent">🟠</div>
+            <div class="rq-stat-body">
+                <strong id="rqUrgent">0</strong>
+                <span>Urgent</span>
+            </div>
+        </div>
+        <div class="rq-stat">
+            <div class="rq-stat-icon rq-si-normal">🟢</div>
+            <div class="rq-stat-body">
+                <strong id="rqNormal">0</strong>
+                <span>Normal</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="rq-filters">
+        <button class="rq-filter-btn rq-f-active" data-filter="all">All</button>
+        <button class="rq-filter-btn" data-filter="critical">Critical</button>
+        <button class="rq-filter-btn" data-filter="urgent">Urgent</button>
+        <button class="rq-filter-btn" data-filter="normal">Normal</button>
+        <span class="rq-count-label" id="rqCountLabel"></span>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="rq-grid" id="rqGrid"></div>
+
+    <!-- Empty state (hidden by default) -->
+    <div class="rq-empty" id="rqEmpty" style="display:none;">
+        <span class="rq-empty-icon">📋</span>
+        <h3>No requests yet</h3>
+        <p>Submit a blood request and it will appear here.</p>
+        <a href="request.html">Make a Request →</a>
+    </div>
+
+</main>
+
+
+<script src="../js/storage.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+    requireLogin();
+    updateNavbar();
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        /* ── helpers ── */
+        function esc(s) {
+            if (!s) return "—";
+            return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        }
+
+        function fmtDate(iso) {
+            if (!iso) return "—";
+            try {
+                return new Date(iso).toLocaleDateString("en-IN", {
+                    day: "numeric", month: "short", year: "numeric"
+                });
+            } catch(e) { return "—"; }
+        }
+
+        function capitalize(s) {
+            if (!s) return "—";
+            return s.charAt(0).toUpperCase() + s.slice(1);
+        }
+
+        /* ── load requests ── */
+        var allRequests = [];
+        try {
+            var raw = localStorage.getItem("bloodConnectRequests");
+            if (raw) allRequests = JSON.parse(raw) || [];
+        } catch(e) { allRequests = []; }
+
+        // newest first
+        allRequests = allRequests.slice().reverse();
+
+        /* ── stats ── */
+        var critical = allRequests.filter(function(r){ return r.urgency === "critical"; }).length;
+        var urgent   = allRequests.filter(function(r){ return r.urgency === "urgent"; }).length;
+        var normal   = allRequests.filter(function(r){ return r.urgency === "normal"; }).length;
+
+        document.getElementById("rqTotal").textContent    = allRequests.length;
+        document.getElementById("rqCritical").textContent = critical;
+        document.getElementById("rqUrgent").textContent   = urgent;
+        document.getElementById("rqNormal").textContent   = normal;
+
+        /* ── render ── */
+        var currentFilter = "all";
+
+        function urgencyBadgeClass(u) {
+            if (u === "critical") return "rq-urg-critical";
+            if (u === "urgent")   return "rq-urg-urgent";
+            return "rq-urg-normal";
+        }
+
+        function renderCards(filter) {
+            var grid  = document.getElementById("rqGrid");
+            var empty = document.getElementById("rqEmpty");
+            var label = document.getElementById("rqCountLabel");
+
+            var list = filter === "all"
+                ? allRequests
+                : allRequests.filter(function(r){ return r.urgency === filter; });
+
+            label.textContent = list.length + " request" + (list.length !== 1 ? "s" : "");
+
+            if (list.length === 0) {
+                grid.innerHTML = "";
+                empty.style.display = "block";
+                return;
+            }
+
+            empty.style.display = "none";
+
+            grid.innerHTML = list.map(function(req, i) {
+                var urg = urgencyBadgeClass(req.urgency);
+                return [
+                    '<div class="rq-card" style="animation-delay:' + (i * 0.04) + 's">',
+
+                    '  <div class="rq-card-top">',
+                    '    <div class="rq-blood-pill">' + esc(req.bloodGroup) + '</div>',
+                    '    <span class="rq-urgency-badge ' + urg + '">' + capitalize(req.urgency) + '</span>',
+                    '  </div>',
+
+                    '  <div class="rq-patient">' + esc(req.patientName) + '</div>',
+                    '  <div class="rq-hospital">🏥 ' + esc(req.hospital) + ' · ' + esc(req.location) + '</div>',
+
+                    '  <div class="rq-details">',
+                    '    <div class="rq-detail-item">',
+                    '      <span>Blood Group</span>',
+                    '      <strong>' + esc(req.bloodGroup) + '</strong>',
+                    '    </div>',
+                    '    <div class="rq-detail-item">',
+                    '      <span>Units</span>',
+                    '      <strong>' + (req.units || "—") + '</strong>',
+                    '    </div>',
+                    '    <div class="rq-detail-item">',
+                    '      <span>Status</span>',
+                    '      <strong style="color:#167538">Active</strong>',
+                    '    </div>',
+                    '  </div>',
+
+                    '  <div class="rq-card-footer">',
+                    '    <span class="rq-date">' + fmtDate(req.createdAt) + '</span>',
+                    '    <button class="rq-matches-btn" data-req-id="' + req.id + '">',
+                    '      View Matches →',
+                    '    </button>',
+                    '  </div>',
+
+                    '</div>'
+                ].join("");
+            }).join("");
+
+            /* View Matches buttons */
+            grid.querySelectorAll(".rq-matches-btn").forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    var reqId = btn.getAttribute("data-req-id");
+                    var req   = allRequests.find(function(r){ return String(r.id) === String(reqId); });
+                    if (!req) return;
+
+                    /* find matching donors */
+                    var donors = typeof getAllDonors === "function" ? getAllDonors() : [];
+                    var matches = donors.filter(function(d) {
+                        return d.bloodGroup === req.bloodGroup && d.eligible === true;
+                    });
+
+                    localStorage.setItem("bloodConnectCurrentRequest", JSON.stringify(req));
+                    localStorage.setItem("bloodConnectCurrentMatches", JSON.stringify(matches));
+                    window.location.href = "matches.html";
+                });
+            });
+        }
+
+        renderCards("all");
+
+        /* ── filter buttons ── */
+        document.querySelectorAll(".rq-filter-btn").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                document.querySelectorAll(".rq-filter-btn").forEach(function(b){
+                    b.classList.remove("rq-f-active");
+                });
+                btn.classList.add("rq-f-active");
+                currentFilter = btn.getAttribute("data-filter");
+                renderCards(currentFilter);
+            });
+        });
+
+    });
+</script>
+
 </body>
 </html>
