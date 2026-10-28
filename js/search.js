@@ -260,59 +260,115 @@ document.addEventListener("DOMContentLoaded", function () {
        FORM SUBMIT
     ========================================================= */
 
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
+   
+form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-        if (isSearching) return;
+    if (isSearching) return;
 
-        // Validate blood group
-        if (!selectedBloodGroup) {
-            showToast("Please select a blood group first.");
-            pillsContainer.classList.add("shake");
-            setTimeout(function () { pillsContainer.classList.remove("shake"); }, 600);
+    if (!selectedBloodGroup) {
+        showToast("Please select a blood group first.");
+        return;
+    }
+
+    const location = locationInput.value.trim();
+
+    if (!location) {
+        showToast("Please enter your city or use Near Me.");
+        return;
+    }
+
+    const patientName =
+        document.getElementById("patientName")?.value.trim() || "Patient";
+
+    const units =
+        Number(document.getElementById("unitsRequired")?.value) || 1;
+
+    
+let urgency =
+    document.getElementById("urgency")?.value || "normal";
+
+urgency = urgency.toLowerCase();
+
+if (urgency === "high") urgency = "urgent";
+if (urgency === "medium") urgency = "critical";
+if (urgency === "low") urgency = "normal";
+
+
+    const hospital =
+        hospitalInput.value.trim();
+
+    const requestData = {
+        patientName: patientName,
+        bloodGroup: selectedBloodGroup,
+        units: units,
+        urgency: urgency,
+        hospital: hospital,
+        location: location
+    };
+
+    const token = localStorage.getItem("bloodConnectToken");
+
+    if (!token) {
+        showToast("Please login before submitting a blood request.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Saving request...";
+
+        const response = await fetch(CONFIG.API.REQUESTS, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify(requestData)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            showToast(data.message || "Request could not be saved.");
             return;
         }
 
-        // Validate location
-        const location = locationInput.value.trim();
-        if (!location) {
-            showToast("Please enter a city or use 'Near Me'.");
-            locationInput.focus();
-            return;
-        }
+        const request = data.request;
 
-        userCity = location;
+        localStorage.setItem(
+            "bloodConnectCurrentRequest",
+            JSON.stringify(request)
+        );
 
-        // Save search / request details to localStorage
-        const patientName = (document.getElementById("patientName") ? document.getElementById("patientName").value.trim() : "") || "Patient";
-        const units = Number(document.getElementById("unitsRequired") ? document.getElementById("unitsRequired").value : 1) || 1;
-        const urgency = (document.getElementById("urgency") ? document.getElementById("urgency").value : "") || "normal";
-        const hospital = (document.getElementById("searchHospital") ? document.getElementById("searchHospital").value.trim() : "") || "";
+        let allReqs = JSON.parse(
+            localStorage.getItem("bloodConnectRequests") || "[]"
+        );
 
-        const requestData = {
-            id: Date.now(),
-            patientName: patientName,
-            bloodGroup: selectedBloodGroup,
-            units: units,
-            urgency: urgency,
-            hospital: hospital,
-            location: userCity,
-            status: "active",
-            createdAt: new Date().toISOString()
-        };
+        if (!Array.isArray(allReqs)) allReqs = [];
 
-        try {
-            localStorage.setItem("bloodConnectCurrentRequest", JSON.stringify(requestData));
-            let allReqs = JSON.parse(localStorage.getItem("bloodConnectRequests") || "[]");
-            if (!Array.isArray(allReqs)) allReqs = [];
-            allReqs.push(requestData);
-            localStorage.setItem("bloodConnectRequests", JSON.stringify(allReqs));
-        } catch (err) {
-            console.warn("Could not save request to localStorage:", err);
-        }
+        allReqs.push(request);
 
-        runSearch(selectedBloodGroup, userCity);
-    });
+        localStorage.setItem(
+            "bloodConnectRequests",
+            JSON.stringify(allReqs)
+        );
+
+        showToast("Blood request saved successfully!");
+
+        runSearch(selectedBloodGroup, location);
+
+    } catch (error) {
+        console.error("Request save error:", error);
+        showToast("Server connection failed. Check your backend.");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML =
+            "<span>🔍</span> Find Matching Donors <span>→</span>";
+    }
+});
+
 
 
     /* =========================================================
