@@ -8,7 +8,7 @@ const CONFIG = (function () {
 
     // ── Replace this with your Render / Railway deployed URL ──
     // Example: "https://bloodconnect-api.onrender.com"
-    const API_BASE_URL = "http://localhost:3001";
+    const API_BASE_URL = "http://localhost:5000";
 
     return {
         API_BASE_URL: API_BASE_URL,
