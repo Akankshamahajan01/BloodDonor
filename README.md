@@ -80,7 +80,6 @@ BloodDonor aims to simplify the process of finding and connecting with blood don
 
 ## 🔮 Future Enhancements
 
-* 📍 GPS-based nearby donor matching
 * 🔔 Real-time emergency notifications
 * 🗺️ Interactive donor location map
 * 📱 Dedicated mobile application
