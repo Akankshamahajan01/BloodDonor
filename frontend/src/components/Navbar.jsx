@@ -31,10 +31,13 @@ export default function Navbar() {
       </Link>
 
       <nav className="nav-links">
-        <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
-        <NavLink to="/donor" className={({ isActive }) => isActive ? "active" : ""}>Donate Blood</NavLink>
-        <NavLink to="/search" className={({ isActive }) => isActive ? "active" : ""}>Search Donors</NavLink>
-        <NavLink to="/about" className={({ isActive }) => isActive ? "active" : ""}>About Us</NavLink>
+        <NavLink to="/"       end className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
+        <NavLink to="/donor"     className={({ isActive }) => isActive ? "active" : ""}>Donate Blood</NavLink>
+        <NavLink to="/search"    className={({ isActive }) => isActive ? "active" : ""}>Search Donors</NavLink>
+        <NavLink to="/donors"    className={({ isActive }) => isActive ? "active" : ""}>All Donors</NavLink>
+        <NavLink to="/stats"     className={({ isActive }) => isActive ? "active" : ""}>Stats</NavLink>
+        <NavLink to="/contact"   className={({ isActive }) => isActive ? "active" : ""}>Contact</NavLink>
+        <NavLink to="/about"     className={({ isActive }) => isActive ? "active" : ""}>About</NavLink>
       </nav>
 
       <div id="navbarAuth">

@@ -4,7 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <title>BloodConnect</title>
+    <!-- Tailwind CSS CDN — Lecture 56: Tailwind CSS Basics, Responsive Layouts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Tailwind custom config — extend with project's brand colors
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              blood:     '#c51f2f',
+              'blood-dark': '#a91827',
+              'blood-deep': '#8f1422',
+              'soft-red': '#fff1f1',
+              cream:     '#fffaf8',
+            },
+            fontFamily: {
+              sans:    ['"DM Sans"', 'sans-serif'],
+              display: ['"Playfair Display"', 'serif'],
+            },
+          },
+        },
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
